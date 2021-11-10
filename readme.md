@@ -3,10 +3,10 @@
 
 ### Autors:
 =======
-#Book CRM
+# Book CRM
 
-###Autors:
->>>>>>> 10fdc9b2ff3d974a82583f5130ea742b697fc72e
+### Autors:
+
 #### Rafał Krukowski / Buners
 #### rafalkrukowski@gmail.com 
 #### https://github.com/samcoswymysl
