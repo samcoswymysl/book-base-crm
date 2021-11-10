@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-# Book CRM
-
-### Autors:
-=======
 # Book CRM
 
 ### Autors:
