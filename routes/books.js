@@ -116,7 +116,10 @@ booksRouter
       }
 
       const book = await Book.updateOne({ _id: id }, {
-        $set: { title, isbn },
+        $set: {
+          title: title.toLowerCase(),
+          isbn,
+        },
       });
       if (!book.matchedCount) {
         throw new Error('Cannot find this ID i DB');

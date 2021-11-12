@@ -1,11 +1,6 @@
-<<<<<<< HEAD
 # Book CRM
 
-### Autors:
-=======
-# Book CRM
-
-### Autors:
+## Autors:
 
 #### Rafał Krukowski / Buners
 #### rafalkrukowski@gmail.com 
