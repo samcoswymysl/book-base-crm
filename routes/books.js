@@ -8,7 +8,7 @@ booksRouter
   .get('/', (req, res) => {
     res.send('boks');
   })
-  .post('/', (req, res) => {
+  .post('/', async (req, res) => {
     const { title, isbn } = req.body;
     const book = new Book({
       title,
@@ -19,9 +19,9 @@ booksRouter
     //Zapisywanie w bazie
     book.save((err) => {
       if (err) {
-        console.log('error');
+        console.log(err);
       }
-      console.log('saved');
+
       res.send('zapisało się');
     });
   });
