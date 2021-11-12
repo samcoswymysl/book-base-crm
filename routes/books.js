@@ -15,8 +15,7 @@ booksRouter
       isbn,
     });
 
-
-    //Zapisywanie w bazie
+    // Zapisywanie w bazie
     book.save((err) => {
       if (err) {
         console.log(err);
