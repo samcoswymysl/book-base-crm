@@ -16,3 +16,9 @@
 #### Marek Bielski / imdmb
 #### marekbielski@yahoo.com
 #### https://github.com/marekbielsky
+
+###
+
+### Lukasz Remkowicz / Luki
+### l.remkowicz@gmail.com
+### https://github.com/LukaszRemkowicz
