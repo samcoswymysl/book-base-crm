@@ -1,18 +1,30 @@
 <h2>List All book</h2>
 
-
-
-<tabel>
+<table>
 	<thead>
-		<th>Title</th>
-		<th>ISBN</th>
-		<th>Date Add</th>
-		<th></th>
+		<tr>
+			<th>Title</th>
+			<th>ISBN</th>
+			<th>Date Add</th>
+			<th></th>
+		</tr>
 	</thead>
 	<tbody>
+
+		{{#each books2}}
+			<tr>
+				<td>{{this.title}}</td>
+				<td>{{this.isbn}}</td>
+
+			</tr>
+
+
+
+		{{/each}}
+
 
 
 
 	</tbody>
 
-</tabel>
+</table>

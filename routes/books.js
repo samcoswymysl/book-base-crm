@@ -13,7 +13,16 @@ booksRouter
   .get('/', async (req, res) => {
     try {
       const books = await Book.find();
-      res.json(books);
+      const books2 = await books.map((el) => ({
+        id: el._id.toHexString(),
+        title: el.title,
+        isbn: el.isbn,
+      }));
+      console.log(books2);
+
+      res.render('books/list-all', {
+        books2,
+      });
     } catch (er) {
       res.json(er.message);
     }
