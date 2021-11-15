@@ -1,3 +1,5 @@
+//sort, book with img cover be on first place
+
 const sortAlgorytm = (docs) => {
   const front = [];
   const back = [];
@@ -12,7 +14,7 @@ const sortAlgorytm = (docs) => {
   const sortedElement = [...front, back];
   return sortedElement;
 };
-
+//bulid path to imgo cover or give path to defult img
 const findCover = (docCoverId) => {
   if (!docCoverId) {
     return 'Patch To Defoolt IMG'; // TODO Add patch to defolt IMG
@@ -39,15 +41,17 @@ const findBooksByTitle = async (title) => {
     console.log(er.message);
   }
 };
-
+//chceck destryption becude sometimes is in objct sometimes in string
 const checkDescription = (bookInfo) => {
   if (typeof bookInfo.description === 'object') {
     return bookInfo.description.value;
   } if (!bookInfo.description) {
-    return 'No description';gi
+    return 'No description'; gi;
   }
   return bookInfo.description;
 };
+
+//get one book information and descryption, and path to img
 
 const getOneBook = async (workID) => {
   const oneBook = await fetch(`https://openlibrary.org${workID}`);
