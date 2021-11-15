@@ -9,6 +9,11 @@ const BookSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  img:
+      {
+        data: Buffer,
+        contentType: String
+      }
 });
 
 module.exports = mongoose.model('Book', BookSchema);

@@ -11,6 +11,7 @@ booksRouter
 
 // Get all books for db
   .get('/', async (req, res) => {
+    console.log('jestem tutaj')
     try {
       const books = await Book.find();
       const books2 = await books.map((el) => ({
@@ -20,7 +21,7 @@ booksRouter
       }));
       console.log(books2);
 
-      res.render('books/list-all', {
+      res.render('home', {
         books2,
       });
     } catch (er) {
