@@ -4,23 +4,23 @@ const button = document.querySelector('.findTitle');
 const input = document.querySelector('#title');
 
 const sendData = async (data) => {
-  await fetch('http://localhost:3000/home', {
+  await fetch('/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(data),
-
-  });
+  }).then((data) => data.json())
+    .then((data) => console.log(data));
 };
 
-const findImportantInfo = (docs) => {
-  const importantData = docs.map((doc) => ({
+const findImportantInfo = async (docs) => {
+  const importantData = await docs.map((doc) => ({
     cover: findCover(doc),
     authors: doc.author_name,
     title: doc.title,
   }));
-  sendData(importantData);
+  await sendData(importantData);
 };
 
 button.addEventListener('click', async () => {

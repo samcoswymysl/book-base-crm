@@ -10,14 +10,14 @@ export const sortAlgorytm = (docs) => {
     }
   });
   const sortedElement = [...front, ...back];
- console.log(sortedElement);
+  return sortedElement;
 };
 
 export const findCover = (docCoverId) => {
-  if (!docCoverId) {
+  if (!docCoverId.cover_i) {
     return 'Patch To Defoolt IMG'; // TODO Add patch to defolt IMG
   }
-  return `https://covers.openlibrary.org/b/id/${docCoverId}-L.jpg`;
+  return `https://covers.openlibrary.org/b/id/${docCoverId.cover_i}-L.jpg`;
 };
 
 // find book by title
@@ -33,6 +33,7 @@ export const findBooksByTitle = async (title) => {
 
     const data = await fetch(`http://openlibrary.org/search.json?q=${title}`);
     const dataEncode = await data.json();
+    console.log(dataEncode.docs)
 
     return sortAlgorytm(dataEncode.docs);
   } catch (er) {
