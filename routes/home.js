@@ -2,8 +2,15 @@ import express from 'express';
 
 export const homeRouter = express.Router();
 
-homeRouter.get('/', (req, res, c) => {
-  res.render('home/home');
-});
+const renderHomePage = (req, res) => res.render('home/home');
+
+const sendBookData = (req, res) => {
 
 
+
+  return res.json();
+}
+
+homeRouter
+    .get('/', renderHomePage)
+    .post('/', sendBookData);
