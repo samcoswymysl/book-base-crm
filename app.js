@@ -1,11 +1,11 @@
-const express = require('express');
-const hbs = require('express-handlebars');
-const mongoose = require('mongoose');
-require('dotenv/config');
-const bodyParser = require('body-parser');
+import express from 'express';
+import hbs from 'express-handlebars';
+import mongoose from 'mongoose';
+import bodyParser from 'body-parser';
 
-const { homeRouter } = require('./routes/home');
-const { booksRouter } = require('./routes/books');
+import { homeRouter } from './routes/home.js';
+import { booksRouter } from './routes/books.js';
+import {} from 'dotenv/config';
 
 const app = express();
 
@@ -20,7 +20,7 @@ app.set('view engine', '.hbs');
 app.use('/', homeRouter);
 app.use('/books', booksRouter);
 
-mongoose.connect(process.env.DB_CONECTION, { useNewUrlParser: true }, () => {
+mongoose.connect(process.env.DB_CONECTION.toString(), () => {
   console.log('Connect fb mongos');
 });
 

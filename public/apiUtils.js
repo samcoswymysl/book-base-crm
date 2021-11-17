@@ -1,4 +1,4 @@
-const sortAlgorytm = (docs) => {
+export const sortAlgorytm = (docs) => {
   const front = [];
   const back = [];
 
@@ -13,7 +13,7 @@ const sortAlgorytm = (docs) => {
   return sortedElement;
 };
 
-const findCover = (docCoverId) => {
+export const findCover = (docCoverId) => {
   if (!docCoverId) {
     return 'Patch To Defoolt IMG'; // TODO Add patch to defolt IMG
   }
@@ -22,7 +22,7 @@ const findCover = (docCoverId) => {
 
 // find book by title
 
-const findBooksByTitle = async (title) => {
+export const findBooksByTitle = async (title) => {
   try {
     if (!title) {
       throw new Error('Title cannot be empty');
@@ -40,16 +40,16 @@ const findBooksByTitle = async (title) => {
   }
 };
 
-const checkDescription = (bookInfo) => {
+export const checkDescription = (bookInfo) => {
   if (typeof bookInfo.description === 'object') {
     return bookInfo.description.value;
   } if (!bookInfo.description) {
-    return 'No description';gi
+    return 'No description'; gi;
   }
   return bookInfo.description;
 };
 
-const getOneBook = async (workID) => {
+export const getOneBook = async (workID) => {
   const oneBook = await fetch(`https://openlibrary.org${workID}`);
   const encodeBookInfo = await oneBook.json();
 
@@ -59,3 +59,5 @@ const getOneBook = async (workID) => {
     encodeBookInfo,
   };
 };
+
+export const x = 20;

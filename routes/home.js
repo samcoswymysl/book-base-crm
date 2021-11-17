@@ -1,13 +1,9 @@
-const express = require('express');
+import express from 'express';
 
-const homeRouter = express.Router();
-
+export const homeRouter = express.Router();
 
 homeRouter.get('/', (req, res, c) => {
   res.render('home/home');
 });
 
-module.exports = {
-  homeRouter,
 
-};
