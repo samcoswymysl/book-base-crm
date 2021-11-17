@@ -1,5 +1,4 @@
 import express from 'express';
-import hbs from 'express-handlebars';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 
@@ -12,11 +11,6 @@ const app = express();
 app.use(bodyParser.json());
 app.use(express.static('public'));
 app.use(express.json());
-app.engine('.hbs', hbs({
-  extname: '.hbs',
-  // helpers: handlebarsHelpers,
-}));
-app.set('view engine', '.hbs');
 app.use('/', homeRouter);
 app.use('/books', booksRouter);
 
