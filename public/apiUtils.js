@@ -9,8 +9,8 @@ export const sortAlgorytm = (docs) => {
       front.push(doc);
     }
   });
-  const sortedElement = [...front, back];
-  return sortedElement;
+  const sortedElement = [...front, ...back];
+ console.log(sortedElement);
 };
 
 export const findCover = (docCoverId) => {
@@ -34,7 +34,7 @@ export const findBooksByTitle = async (title) => {
     const data = await fetch(`http://openlibrary.org/search.json?q=${title}`);
     const dataEncode = await data.json();
 
-    return sortAlgorytm(dataEncode);
+    return sortAlgorytm(dataEncode.docs);
   } catch (er) {
     console.log(er.message);
   }
