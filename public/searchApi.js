@@ -6,13 +6,6 @@ const input = document.querySelector('#title');
 
 
 
-
-
-
-
-
-
-
 button.addEventListener('click', async () => {
   const dataFromApi = await findBooksByTitle(input.value);
 });
