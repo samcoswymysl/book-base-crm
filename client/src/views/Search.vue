@@ -6,6 +6,11 @@
     <div class="books">
       <label for="title"></label>
       <input type="text" id="title" v-model="title" placeholder="Title">
+      <button
+        v-on:click="searchBooks"
+      >
+        Find</button>
+    </div>
       <div class="booksContainer"
            v-for="(book) in books"
            v-bind:item="book"
@@ -22,35 +27,42 @@
 
         <p class="text">
           Title: {{ book.title }}
-          <button v-on:click="oneBooks(book.lending_edition_s)">Details</button>
+          <router-link to="/detailsonebook"
+          >
+            <button
+              v-on:click="showDetails(book)"
+              v-bind:book="book">Details
+            </button>
+          </router-link>
+
         </p>
       </div>
 
     </div>
 
-  <button
-    v-on:click="searchBooks"
-  >
-    Find</button>
-  </div>
 </template>
 
 <script>
 import connectWithApi from '../connectWithApi';
+import Bus from '../config/eventBus';
 
 export default {
   name: 'Search',
+  props: {
+    book: {
+      type: String,
+    },
+  },
   data() {
     return {
       books: [],
       title: '',
       error: '',
-      data: '',
+      details: {},
     };
   },
   async findBooks() {
     try {
-      console.log('x');
       const booksJSON = await connectWithApi.getBooks(this.title);
       this.books = await JSON.parse(booksJSON);
     } catch (e) {
@@ -60,11 +72,11 @@ export default {
   methods: {
     async searchBooks() {
       this.books = await connectWithApi.getBooks(this.title);
-      console.log('books', this.books);
     },
-    async oneBooks(key) {
-      this.data = await connectWithApi.getOneBook(key);
-      await console.log(this.data);
+
+    showDetails(book) {
+      console.log('xxxx');
+      Bus.$emit('show', book);
     },
 
   },
