@@ -33,7 +33,7 @@ export const findBooksByTitle = async (title) => {
 
     const data = await fetch(`http://openlibrary.org/search.json?q=${title}`);
     const dataEncode = await data.json();
-    console.log(dataEncode.docs)
+    console.log(dataEncode.docs);
 
     return sortAlgorytm(dataEncode.docs);
   } catch (er) {
