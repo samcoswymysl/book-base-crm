@@ -1,35 +1,43 @@
 <template>
 
   <div class="detailsWrapper">
-    <h2>xxxxx</h2>
+    <h2>Title:</h2>
+    <button v-on:click="one">klik</button>
+    <p v-bind="details">{{ book }}</p>
 
   </div>
 
 </template>
 
 <script>
-import connectWithApi from '../connectWithApi';
 import Bus from '../config/eventBus';
 
 export default {
   name: 'DetailsOneBook',
+  props: ['book'],
+
   data() {
     return {
-      book: {},
+      counter: this.book,
+      details: {},
     };
   },
   methods: {
-    async oneBooks(key) {
-      this.details = await connectWithApi.getOneBook(key);
-      await console.log(this.details);
+    one() {
+      console.log(this.book);
+      console.log(this.counter);
     },
 
   },
+  created() {
+    Bus.$on('show', (book) => {
+      console.log('x');
+      this.book = book;
+    });
+  },
 
 };
-Bus.$on('show', (book) => {
-  console.log('odebrano', book);
-});
+
 </script>
 
 <style scoped>
