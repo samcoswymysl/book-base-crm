@@ -11,7 +11,11 @@ export default class ConnectWithServ {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify('asdsadasdasdsa'),
+          body: JSON.stringify({
+            nme: 'Rafał',
+            pasword: 'dasdasdas',
+          }),
+
         })
           .then((res) => res.json())
           .then((data) => {

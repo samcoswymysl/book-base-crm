@@ -9,7 +9,7 @@ import { registerRouter } from './routes/register.js';
 
 const app = express();
 
-// app.use(bodyParser.json());
+app.use(bodyParser.json());
 app.use(express.static('public'));
 app.use(express.json());
 
