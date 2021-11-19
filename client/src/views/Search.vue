@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
   <div class="searchWrapper">
     <h1>Books CRM</h1>
     <p
@@ -12,46 +13,72 @@
       <button
         v-on:click="searchBooks"
 
+=======
+  <div class="search-wrapper">
+
+    <div class="search-book-container">
+
+      <h1>Books CRM</h1>
+      <p class="error" v-if="error">{{ error }}</p>
+
+      <div class="books">
+          <label for="title"></label>
+          <input
+            class="book-title-input"
+            type="text"
+            id="title"
+            v-model="title"
+            v-on:keyup.enter="searchBooks"
+            placeholder="Enter Book's title..."
+          >
+<!--          <button type="submit"-->
+<!--            class="find-book-button"-->
+<!--            v-on:click="searchBooks($event)"-->
+<!--          >-->
+<!--            Find-->
+<!--          </button>-->
+      </div>
+
+      <div
+        class="bookDetails"
+        v-if="details!==''"
+>>>>>>> 1417f013898bbd0869855cd9161fc26a51ff2fc2
       >
-        Find</button>
+        <img class="detailsImg" :src="`${imgSrc}`"  alt="">
+        <p v-if="author">Authors: {{author}}</p>
+        <p v-if="details.title">Title: {{details.title}}</p>
+        <p v-if="details.isbn_10">ISBN 10: {{details.isbn_10[0]}}</p>
+        <p v-if="details.isbn_13">ISBN 13: {{details.isbn_13[0]}}</p>
+        <p v-if="details.description">Description: {{details.description}} </p>
+        <button class="close" v-on:click="close">Close</button>
+
+      </div>
     </div>
 
-    <div
-      class="bookDetails"
-      v-if="details!==''"
-    >
-      <img class="detailsImg" :src="`${imgSrc}`"  alt="">
-      <p v-if="author">Authors: {{author}}</p>
-      <p v-if="details.title">Title: {{details.title}}</p>
-      <p v-if="details.isbn_10">ISBN 10: {{details.isbn_10[0]}}</p>
-      <p v-if="details.isbn_13">ISBN 13: {{details.isbn_13[0]}}</p>
-      <p v-if="details.description">Description: {{details.description}} </p>
-      <button class="close" v-on:click="close">Close</button>
-
-    </div>
-
-      <div class="booksContainer"
-           v-for="(book) in books"
-           v-bind:item="book"
-           v-bind:key="book.key"
-      >
-        <img v-bind:src="`https://covers.openlibrary.org/b/id/${book.cover_i}-L.jpg`"
-          alt="fs">
-        <p>{{book.cover}}</p>
-
-        <p class="authors"
-        v-for="(author , index) in book.author_name"
-        v-bind:key="index"
+      <div class="books-container">
+        <div class="single-book-container"
+             v-for="(book) in books"
+             v-bind:item="book"
+             v-bind:key="book.key"
         >
-          Author: {{author}}</p>
+          <img class="book-cover-img" v-bind:src="`https://covers.openlibrary.org/b/id/${book.cover_i}-L.jpg`"
+               alt="fs">
+          <p>{{book.cover}}</p>
+
+          <p class="authors"
+             v-for="(author , index) in book.author_name"
+             v-bind:key="index"
+          >
+            Author: {{author}}</p>
 
           <p>Title: {{ book.title }}</p>
-            <button
-              v-on:click="oneBook($event, book, book.author_name)"
-              v-bind:book="book">Details
-            </button>
+          <button
+            v-on:click="oneBook($event, book, book.author_name)"
+            v-bind:book="book">Details
+          </button>
 
         </div>
+      </div>
 
     </div>
 
@@ -76,6 +103,7 @@ export default {
   methods: {
     async searchBooks() {
       this.books = await connectWithApi.getBooks(this.title);
+      this.title = '';
     },
 
     async oneBook(event, book, author) {
@@ -94,13 +122,70 @@ export default {
     close() {
       this.details = '';
     },
-
   },
 
 };
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap');
+
+* {
+  font-family: 'Poppins', sans-serif;
+}
+
+.search-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  width: 80%
+}
+
+.book-title-input {
+  padding: 7px 12px;
+  font-size: 14px;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 5px;
+  outline: none;
+}
+
+.book-title-input {
+  margin-right: 5px;
+  color: lightslategrey;
+}
+
+.book-title-input:focus {
+  color: black;
+}
+
+/*.find-book-button {*/
+/*  color: black;*/
+/*  cursor: pointer;*/
+/*  transition: color .3s, background-color .3s;*/
+/*}*/
+
+/*.find-book-button:hover {*/
+/*  color: white;*/
+/*  background-color: black;*/
+/*}*/
+
+.books-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin-top: 50px;
+}
+
+.single-book-container {
+  margin-bottom: 50px;
+  width: 17%;
+}
+
+.book-cover-img {
+  width: 100%;
+}
+
 .bookDetails{
   background: white;
   position: -webkit-sticky;
