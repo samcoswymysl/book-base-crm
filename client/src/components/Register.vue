@@ -1,16 +1,36 @@
 <template>
-  <form>
+  <div class="registerWrapper">
+    <div class="register-window">
+      <p
+        class="error-valid"
+        v-if="error"
+      >
+        {{error}}
+      </p>
+
+    <p v-if="status">{{status}}</p>
     <label for="name">Your name</label>
-    <input type="text" id="name">
+    <input
+      type="text"
+      id="name"
+      required
+      v-model="name"
+    >
+    <label for="password">Your name</label>
+    <input
+      type="password"
+      id="password"
+      required
+      v-model="password"
+    >
     <label for="register">Register</label>
     <input
-      v-on:click="register"
+      v-on:click="validForm"
       type="submit"
       id="register"
     >
-
-  </form>
-
+    </div>
+  </div>
 </template>
 
 <script>
@@ -20,12 +40,26 @@ export default {
   name: 'Register',
   data() {
     return {
+      name: '',
+      password: '',
       status: '',
+      error: '',
     };
   },
   methods: {
-    register() {
-      this.status = ConnectWithServ.addUser('Rafał', 'Hasło');
+    async register() {
+      this.status = await ConnectWithServ.addUser(this.name, this.password);
+    },
+    validForm() {
+      if (this.name.length <= 4) {
+        this.error = 'Your name must have 4 char';
+        return;
+      }
+      if (this.password.length <= 6) {
+        this.error = 'Your password must have 6 char';
+        return;
+      }
+      this.register();
     },
   },
 

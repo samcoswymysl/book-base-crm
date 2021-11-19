@@ -1,8 +1,8 @@
-import express from 'express';
-import mongoose from 'mongoose';
-import Book from '../models/Book.js';
+const express = require('express');
+const mongoose = require('mongoose');
+const Books = require('../models/Book');
 
-export const booksRouter = express.Router();
+const booksRouter = express.Router();
 
 /* TODO ADD new extends class ERROR */
 /* TODO change res.json to res.render */
@@ -12,7 +12,7 @@ booksRouter
 // Get all books for db
   .get('/', async (req, res) => {
     try {
-      const books = await Book.find();
+      const books = await Books.find();
       res.json(books);
     } catch (er) {
       res.json(er.message);
@@ -23,7 +23,7 @@ booksRouter
 
   .get('/title/:title?', async (req, res) => {
     try {
-      const book = await Book.find({ title: req.params.title.toLowerCase() });
+      const book = await Books.find({ title: req.params.title.toLowerCase() });
       res.json(book);
     } catch (er) {
       res.json(er.message);
@@ -41,7 +41,7 @@ booksRouter
         throw new Error('ISBN must be a number');
       }
 
-      const book = await Book.find({ isbn: isbnNum });
+      const book = await Books.find({ isbn: isbnNum });
       res.json(book);
     } catch (er) {
       res.json(er.message);
@@ -127,3 +127,7 @@ booksRouter
       res.json(er.message);
     }
   });
+
+module.exports = {
+  booksRouter,
+};

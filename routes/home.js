@@ -1,6 +1,6 @@
-import express from 'express';
+const express = require('express');
 
-export const homeRouter = express.Router();
+const homeRouter = express.Router();
 
 const renderHomePage = (req, res) => res.render('home/home');
 
@@ -12,3 +12,7 @@ const sendBookData = (req, res) => {
 homeRouter
   .get('/', renderHomePage)
   .post('/', sendBookData);
+
+module.exports = {
+  homeRouter,
+};
