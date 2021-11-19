@@ -1,13 +1,17 @@
 <template>
   <div class="searchWrapper">
     <h1>Books CRM</h1>
-    <p class="error" v-if="error">{{ error }}</p>
+    <p
+      class="error"
+      v-if="error"
+    >{{ error }}</p>
 
     <div class="books">
       <label for="title"></label>
       <input type="text" id="title" v-model="title" placeholder="Title">
       <button
         v-on:click="searchBooks"
+
       >
         Find</button>
     </div>
@@ -54,7 +58,7 @@
 </template>
 
 <script>
-import connectWithApi from '../connectWithApi';
+import connectWithApi from '../utils/connectWithApi';
 
 export default {
   name: 'Search',
@@ -104,7 +108,7 @@ export default {
   top: 15vh;
   left: 15vw;
   z-index: 1;
-  width: 70vw;
+  width: 70vw;git
   height: 70vh;
 }
 
