@@ -7,13 +7,12 @@ export default class ConnectWithServ {
       try {
         fetch('http://localhost:3000/register', {
           method: 'POST',
-          mode: 'no-cors',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            nme: 'Rafał',
-            pasword: 'dasdasdas',
+            name,
+            password,
           }),
 
         })
