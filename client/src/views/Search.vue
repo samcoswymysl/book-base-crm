@@ -1,19 +1,5 @@
 <template>
-<<<<<<< HEAD
-  <div class="searchWrapper">
-    <h1>Books CRM</h1>
-    <p
-      class="error"
-      v-if="error"
-    >{{ error }}</p>
 
-    <div class="books">
-      <label for="title"></label>
-      <input type="text" id="title" v-model="title" placeholder="Title">
-      <button
-        v-on:click="searchBooks"
-
-=======
   <div class="search-wrapper">
 
     <div class="search-book-container">
@@ -42,7 +28,6 @@
       <div
         class="bookDetails"
         v-if="details!==''"
->>>>>>> 1417f013898bbd0869855cd9161fc26a51ff2fc2
       >
         <img class="detailsImg" :src="`${imgSrc}`"  alt="">
         <p v-if="author">Authors: {{author}}</p>
@@ -79,9 +64,7 @@
 
         </div>
       </div>
-
-    </div>
-
+  </div>
 </template>
 
 <script>
@@ -158,7 +141,6 @@ export default {
 .book-title-input:focus {
   color: black;
 }
-
 /*.find-book-button {*/
 /*  color: black;*/
 /*  cursor: pointer;*/
@@ -193,7 +175,7 @@ export default {
   top: 15vh;
   left: 15vw;
   z-index: 1;
-  width: 70vw;git
+  width: 70vw;
   height: 70vh;
 }
 
