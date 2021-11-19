@@ -1,18 +1,14 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <h2>Welcome to the LiberyCRM </h2>
+    <p>You can log in here and search for books in the https://openlibrary.org database and after registration you can add your favorite books to your shelf</p>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue';
-
 export default {
   name: 'Home',
   components: {
-    HelloWorld,
   },
 };
 </script>

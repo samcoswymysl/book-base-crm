@@ -83,7 +83,6 @@ export default {
         console.log(this.details);
       } catch (e) {
         console.log(e);
-        this.details = 'XXX';
         this.errDetails = e ? 'We dont have any information' : '';
       }
     },
