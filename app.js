@@ -7,6 +7,7 @@ require('dotenv/config');
 const { homeRouter } = require('./routes/home');
 const { booksRouter } = require('./routes/books');
 const { registerRouter } = require('./routes/register');
+const { loginRouter } = require('./routes/login');
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use(express.static('public'));
 app.use('/', homeRouter);
 app.use('/books', booksRouter);
 app.use('/register', registerRouter);
+app.use('/login', loginRouter);
 
 mongoose.connect(process.env.DB_CONECTION.toString(), () => {
   console.log('Connect db mongos');
