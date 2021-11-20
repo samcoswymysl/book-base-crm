@@ -8,7 +8,7 @@
         {{error}}
       </p>
 
-    <p v-if="status">{{status}}</p>
+    <p v-if="serverAnswer">{{serverAnswer.message}}</p>
     <label for="name">Your name</label>
     <input
       type="text"
@@ -42,13 +42,13 @@ export default {
     return {
       name: '',
       password: '',
-      status: '',
+      serverAnswer: '',
       error: '',
     };
   },
   methods: {
     async register() {
-      this.status = await ConnectWithServ.addUser(this.name, this.password);
+      this.serverAnswer = await ConnectWithServ.addUser(this.name, this.password);
     },
     validForm() {
       if (this.name.length <= 4) {

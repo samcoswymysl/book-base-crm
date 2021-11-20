@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const Books = require('../models/Book');
+const Book = require('../models/Book');
 
 const booksRouter = express.Router();
 
@@ -12,7 +12,7 @@ booksRouter
 // Get all books for db
   .get('/', async (req, res) => {
     try {
-      const books = await Books.find();
+      const books = await Book.find();
       res.json(books);
     } catch (er) {
       res.json(er.message);
@@ -23,7 +23,7 @@ booksRouter
 
   .get('/title/:title?', async (req, res) => {
     try {
-      const book = await Books.find({ title: req.params.title.toLowerCase() });
+      const book = await Book.find({ title: req.params.title.toLowerCase() });
       res.json(book);
     } catch (er) {
       res.json(er.message);
@@ -41,7 +41,7 @@ booksRouter
         throw new Error('ISBN must be a number');
       }
 
-      const book = await Books.find({ isbn: isbnNum });
+      const book = await Book.find({ isbn: isbnNum });
       res.json(book);
     } catch (er) {
       res.json(er.message);

@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 require('dotenv/config');
 
-const { homeRouter } = require( './routes/home');
+const { homeRouter } = require('./routes/home');
 const { booksRouter } = require('./routes/books');
 const { registerRouter } = require('./routes/register');
 
