@@ -18,7 +18,7 @@ loginRouter.post('/', async (req, res) => {
         throw new Error('Wrong password');
       }
       if (err) {
-        return res.json('Error, try later');
+        throw new Error('Error, try later');
       }
       res.json(`pass is ${passIsOk}`);
     });
