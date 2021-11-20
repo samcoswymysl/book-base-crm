@@ -13,6 +13,7 @@
     <input
       type="text"
       id="name"
+      placeholder="Min 4 at"
       required
       v-model="name"
     >
@@ -20,6 +21,7 @@
     <input
       type="password"
       id="password"
+      placeholder="Min 6 at"
       required
       v-model="password"
     >
