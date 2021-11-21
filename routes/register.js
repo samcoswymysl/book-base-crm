@@ -1,8 +1,38 @@
-import express from 'express';
+const express = require('express');
+const { hash } = require('bcrypt');
 
-export const registerRouter = express.Router();
+const User = require('../models/User');
 
-registerRouter.post('/', (req, res) => {
-  console.log(req.body);
-  res.json({ ok: 'ok' });
+const registerRouter = express.Router();
+
+registerRouter.post('/', async (req, res) => {
+  const { name, password } = req.body;
+  try {
+    hash(password, 10, async (err, hash) => {
+      if (err) {
+        throw new Error('Poroblem becrypt');
+      }
+      const user = new User({
+        name: name.toLowerCase(),
+        password: hash,
+      });
+
+      await user.save((er) => {
+        if (er) { // check error
+          const message = (er.code === 11000) ? 'User Alredy Exist' : 'Error, try later';
+          res.status((er.code === 11000) ? 409 : 500);
+          return res.json({ message });
+        }
+        res.status(201);
+        res.json({ message: 'Your account has been created' });
+      });
+    });
+  } catch (er) {
+    res.status(500);
+    res.json({ message: 'Error, try later' });
+  }
 });
+
+module.exports = {
+  registerRouter,
+};

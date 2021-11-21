@@ -1,8 +1,8 @@
-import express from 'express';
-import mongoose from 'mongoose';
-import Book from '../models/Book.js';
+const express = require('express');
+const mongoose = require('mongoose');
+const Book = require('../models/Book');
 
-export const booksRouter = express.Router();
+const booksRouter = express.Router();
 
 /* TODO ADD new extends class ERROR */
 /* TODO change res.json to res.render */
@@ -140,3 +140,7 @@ booksRouter
       res.json(er.message);
     }
   });
+
+module.exports = {
+  booksRouter,
+};

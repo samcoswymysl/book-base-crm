@@ -3,12 +3,49 @@
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/search">Search</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/about">About</router-link>|
+
+      <button
+        v-if="!loginNow"
+        v-on:click="register"
+        >Register
+      </button>
+      <Register
+        v-if="registerWindow"
+      />
+
+      <Login/>
+
     </div>
     <router-view/>
   </div>
 </template>
 <script>
+import Register from './components/Register.vue';
+import Login from './components/Login.vue';
+
+export default {
+  name: 'App',
+  components: {
+    Register,
+    Login,
+  },
+  data() {
+    return {
+      registerWindow: false,
+      registrationPossible: true,
+      loginNow: false,
+      loginWindow: false,
+    };
+  },
+  methods: {
+    register() {
+      this.registerWindow = !this.registerWindow;
+    },
+
+  },
+
+};
 
 </script>
 
