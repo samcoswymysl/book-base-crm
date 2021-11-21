@@ -3,9 +3,10 @@ const { hash } = require('bcrypt');
 
 const User = require('../models/User');
 
+
 const registerRouter = express.Router();
 
-registerRouter.post('/', async (req, res) => {
+registerRouter.post('/', async (req, res, next) => {
   const { name, password } = req.body;
   try {
     hash(password, 10, async (err, hash) => {

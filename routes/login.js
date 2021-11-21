@@ -1,27 +1,31 @@
-const express = require('express');
-const { compare } = require('bcrypt');
+const dotenv = require('dotenv');
 
-const User = require('../models/User');
+dotenv.config({ path: '../.env' });
+const express = require('express');
+const passport = require('passport');
+const jtw = require('jsonwebtoken');
 
 const loginRouter = express.Router();
 
-loginRouter.post('/', async (req, res) => {
-  const { name, password } = req.body;
-
+loginRouter.post('/', (req, res, next) => {
   try {
-    const userFind = await User.findOne({ name: name.toLowerCase() });
-    if (userFind === null) {
-      throw new Error('This username don\' exist');
-    }
-    await compare(password, userFind.password, (err, passIsOk) => {
-      if (!passIsOk) {
-        throw new Error('Wrong password');
-      }
+    passport.authenticate('local', { session: false }, (err, user, info) => {
       if (err) {
-        throw new Error('Error, try later');
+        res.json('błąd');
       }
-      res.json(`pass is ${passIsOk}`);
-    });
+      if (!user) {
+        return res.json(info.message);
+      }
+      req.login(user, { session: false }, (er) => {
+        if (er) {
+          return res.json(er.message);
+        }
+        const token = jtw.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: 122200 });
+        console.log(token);
+        res.header('Authorization', token);
+        return res.json(token);
+      });
+    })(req, res, next);
   } catch (e) {
     res.json(e.message);
   }
