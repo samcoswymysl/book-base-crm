@@ -1,27 +1,34 @@
-const express = require('express');
-const { compare } = require('bcrypt');
+const dotenv = require('dotenv');
 
-const User = require('../models/User');
+dotenv.config({ path: '../.env' });
+const express = require('express');
+const passport = require('passport');
+const jtw = require('jsonwebtoken');
 
 const loginRouter = express.Router();
 
-loginRouter.post('/', async (req, res) => {
-  const { name, password } = req.body;
-
+loginRouter.post('/', (req, res, next) => {
   try {
-    const userFind = await User.findOne({ name: name.toLowerCase() });
-    if (userFind === null) {
-      throw new Error('This username don\' exist');
-    }
-    await compare(password, userFind.password, (err, passIsOk) => {
-      if (!passIsOk) {
-        throw new Error('Wrong password');
-      }
+    passport.authenticate('local', { session: false }, (err, user, info) => {
       if (err) {
-        throw new Error('Error, try later');
+        throw new Error('Error');
       }
-      res.json(`pass is ${passIsOk}`);
-    });
+      if (!user) {
+        return res.json(info.message);
+      }
+      req.login(user, { session: false }, (er) => {
+        if (er) {
+          return res.json(er.message);
+        }
+        const token = jtw.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '60s' }); //TODO add time how you can use the token
+        console.log(token);
+        res.cookie('auth', ` Bearer ${token}`, {
+          path: 'http://localhost:8080',
+          maxAge: 1000 * 60, //todo add maxAge cookies
+        });
+        return res.json('Login successful');
+      });
+    })(req, res, next);
   } catch (e) {
     res.json(e.message);
   }

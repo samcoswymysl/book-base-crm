@@ -2,7 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Search from '../views/Search.vue';
 import Home from '../views/Home.vue';
-import DetailsOneBook from '../views/DetailsOneBook.vue';
+import FavBooks from '../views/FavBooks.vue';
 
 Vue.use(VueRouter);
 
@@ -20,10 +20,11 @@ const routes = [
     component: Search,
   },
   {
-    path: '/detailsonebook',
-    name: 'DetailsOneBook',
-    component: DetailsOneBook,
+    path: '/favorite',
+    name: 'FavBooks',
+    component: FavBooks,
   },
+
 ];
 
 const router = new VueRouter({
