@@ -22,7 +22,7 @@ loginRouter.post('/', (req, res, next) => {
         }
         const token = jtw.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: 122200 });
         console.log(token);
-        res.header('Authorization', token);
+        res.header('Authorization', ` Bearer ${token}`);
         return res.json(token);
       });
     })(req, res, next);

@@ -39,6 +39,31 @@ export default class ConnectWithServ {
             password,
           }),
 
+          credentials: 'include',
+
+        })
+          .then((res) => {
+            console.log(res.headers.get('Set-Cookie'));
+            return res.json();
+          })
+          .then((data) => {
+            console.log(data);
+            resolve(data);
+          });
+      } catch (e) {
+        reject(e.message);
+      }
+    });
+  }
+
+  static getFavorite(token) {
+    return new Promise((resolve, reject) => {
+      try {
+        fetch('http://localhost:3000/fav', {
+          method: 'GET',
+          headers: {
+            Authorization: token,
+          },
         })
           .then((res) => res.json())
           .then((data) => {

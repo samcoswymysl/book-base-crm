@@ -4,17 +4,24 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/search">Search</router-link> |
       <router-link to="/about">About</router-link>|
+      <router-link to="/favorite">Your Favorite Books</router-link> |
 
       <button
         v-if="!loginNow"
         v-on:click="register"
         >Register
       </button>
+      <button
+      v-if="!loginNow"
+      v-on:click="login"
+      >Login</button>
+
       <Register
         v-if="registerWindow"
       />
-
-      <Login/>
+      <Login
+        v-if="loginWindow"
+      />
 
     </div>
     <router-view/>
@@ -29,6 +36,7 @@ export default {
   components: {
     Register,
     Login,
+
   },
   data() {
     return {
@@ -41,8 +49,12 @@ export default {
   methods: {
     register() {
       this.registerWindow = !this.registerWindow;
+      this.loginWindow = false;
     },
-
+    login() {
+      this.loginWindow = !this.loginWindow;
+      this.registerWindow = false;
+    },
   },
 
 };
