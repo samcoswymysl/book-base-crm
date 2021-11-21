@@ -1,27 +1,23 @@
-const express = require('express');
-const hbs = require('express-handlebars');
-const mongoose = require('mongoose');
-require('dotenv/config');
-const bodyParser = require('body-parser');
+import express from 'express';
+import mongoose from 'mongoose';
+import bodyParser from 'body-parser';
+import {} from 'dotenv/config';
 
-const { homeRouter } = require('./routes/home');
-const { booksRouter } = require('./routes/books');
+import { homeRouter } from './routes/home.js';
+import { booksRouter } from './routes/books.js';
+import { registerRouter } from './routes/register.js';
 
 const app = express();
 
-
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
 app.use(express.static('public'));
 app.use(express.json());
-app.engine('.hbs', hbs({
-  extname: '.hbs',
-  // helpers: handlebarsHelpers,
-}));
-app.set('view engine', '.hbs');
+
 app.use('/', homeRouter);
 app.use('/books', booksRouter);
+app.use('/register', registerRouter);
 
-mongoose.connect(process.env.DB_CONECTION, { useNewUrlParser: true }, () => {
+mongoose.connect(process.env.DB_CONECTION.toString(), () => {
   console.log('Connect fb mongos');
 });
 
