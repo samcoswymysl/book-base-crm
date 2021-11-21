@@ -11,7 +11,7 @@ loginRouter.post('/', (req, res, next) => {
   try {
     passport.authenticate('local', { session: false }, (err, user, info) => {
       if (err) {
-        res.json('błąd');
+        throw new Error('Error');
       }
       if (!user) {
         return res.json(info.message);
@@ -20,10 +20,13 @@ loginRouter.post('/', (req, res, next) => {
         if (er) {
           return res.json(er.message);
         }
-        const token = jtw.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: 122200 });
+        const token = jtw.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '60s' }); //TODO add time how you can use the token
         console.log(token);
-        res.header('Authorization', ` Bearer ${token}`);
-        return res.json(token);
+        res.cookie('auth', ` Bearer ${token}`, {
+          path: 'http://localhost:8080',
+          maxAge: 1000 * 60, //todo add maxAge cookies
+        });
+        return res.json('Login successful');
       });
     })(req, res, next);
   } catch (e) {

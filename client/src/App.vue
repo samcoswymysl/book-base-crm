@@ -1,64 +1,19 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/search">Search</router-link> |
-      <router-link to="/about">About</router-link>|
-      <router-link to="/favorite">Your Favorite Books</router-link> |
+    <Nav/>
 
-      <button
-        v-if="!loginNow"
-        v-on:click="register"
-        >Register
-      </button>
-      <button
-      v-if="!loginNow"
-      v-on:click="login"
-      >Login</button>
-
-      <Register
-        v-if="registerWindow"
-      />
-      <Login
-        v-if="loginWindow"
-      />
-
-    </div>
-    <router-view/>
   </div>
 </template>
 <script>
-import Register from './components/Register.vue';
-import Login from './components/Login.vue';
+
+import Nav from './components/Nav.vue';
 
 export default {
   name: 'App',
   components: {
-    Register,
-    Login,
-
+    Nav,
   },
-  data() {
-    return {
-      registerWindow: false,
-      registrationPossible: true,
-      loginNow: false,
-      loginWindow: false,
-    };
-  },
-  methods: {
-    register() {
-      this.registerWindow = !this.registerWindow;
-      this.loginWindow = false;
-    },
-    login() {
-      this.loginWindow = !this.loginWindow;
-      this.registerWindow = false;
-    },
-  },
-
 };
-
 </script>
 
 <style>

@@ -17,7 +17,11 @@ const app = express();
 // app.use(passport.)
 app.use(passport.initialize());
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:8080', // <-- location of the react app were connecting to
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+}));
 app.use(bodyParser.json());
 app.use(express.static('public'));
 

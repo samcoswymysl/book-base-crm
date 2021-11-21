@@ -36,10 +36,16 @@ export default {
 
   methods: {
     async login() {
+      if (this.name.length <= 4 || this.password.length <= 6) {
+        this.loginMessage = 'You must write name and password';
+        return;
+      }
       this.loginMessage = await ConnectWithServ.login(this.name, this.password);
+      if (this.loginMessage === 'Login successful') {
+        this.$router.go();
+      }
     },
   },
-
 };
 </script>
 
