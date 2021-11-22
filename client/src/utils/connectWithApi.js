@@ -21,6 +21,7 @@ export default class ConnectApi {
           .then((res) => res.json())
           .then((res) => {
             const sorted = this.sortAlgorytm(res.docs);
+            console.log(sorted);
             return resolve(sorted);
           });
       } catch (e) {

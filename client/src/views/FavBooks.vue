@@ -1,29 +1,60 @@
 <template>
-  <div class="about">
+  <div class="favWrapper">
     <h1>Your favorite books</h1>
-    <p v-if="InformationLogin">{{ InformationLogin }}</p>
+    <p
+      v-if="authorize"
+    >{{ authorize }}</p>
+    <div
+      class="favBooksList"
+      v-if="favBookArr.length > 0"
+    >
+      <div
+        class="book"
+        v-for="(book) in favBookArr"
+        v-bind:key="book.bookEditionKey"
+      >
+        <img v-bind:src="`${book.coverSrc}`" v-bind:alt="`Cover book ${book.title}`">
+        <p>{{book.title}}</p>
+        <p
+          v-for="(author, index) in book.authors"
+          v-bind:key="index"
+        >{{author}}</p>
+        <Details
+          v-bind:src="book.coverSrc"
+          v-bind:book="book"
+          v-bind:authors="book.authors"
+        />
+
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import ConnectWithServ from '../utils/connectWithServ';
+import Details from '../components/Details.vue';
 
 export default {
   name: 'FavBooks',
+  components: {
+    Details,
+  },
 
   data() {
     return {
-      InformationLogin: '',
+
+      authorize: '',
+      favBookArr: [],
     };
   },
   methods: {},
 
   async created() {
     if (this.$cookies.get('auth') === null) {
-      this.InformationLogin = 'You must Login';
+      this.authorize = 'You must Login';
       return;
     }
-    this.InformationLogin = await ConnectWithServ.getFavorite(this.$cookies.get('auth'));
+    this.favBookArr = await ConnectWithServ.getFavorite(this.$cookies.get('auth'));
   },
 
 };

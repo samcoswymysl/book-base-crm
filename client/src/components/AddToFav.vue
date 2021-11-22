@@ -27,6 +27,7 @@ export default {
   props: {
     src: String,
     isLogin: String,
+    authors: Array,
     book: Object,
   },
 
@@ -37,9 +38,9 @@ export default {
       servResponse: '',
       infoBook: {
         title: this.book.title,
-        author: this.book.author,
+        authors: this.book.author_name,
         coverSrc: this.src,
-        bookEditionKey: this.book.edition_key[0],
+        edition_key: this.book.edition_key,
       },
     };
   },

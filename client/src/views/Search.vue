@@ -15,29 +15,9 @@
             id="title"
             v-model="title"
             v-on:keyup.enter="searchBooks"
-            placeholder="Enter Book's title..."
-          >
-<!--          <button type="submit"-->
-<!--            class="find-book-button"-->
-<!--            v-on:click="searchBooks($event)"-->
-<!--          >-->
-<!--            Find-->
-<!--          </button>-->
-      </div>
+            placeholder="Enter Book's title...">
 
-      <div
-        class="bookDetails"
-        v-if="details!==''"
-      >
-        <img class="detailsImg" :src="`${imgSrc}`"  alt="">
-        <p v-if="author">Authors: {{author}}</p>
-        <p v-if="details.title">Title: {{details.title}}</p>
-        <p v-if="details.isbn_10">ISBN 10: {{details.isbn_10[0]}}</p>
-        <p v-if="details.isbn_13">ISBN 13: {{details.isbn_13[0]}}</p>
-        <p v-if="details.description">Description: {{details.description}} </p>
-        <button class="close" v-on:click="close">Close</button>
       </div>
-    </div>
 
       <div class="books-container">
         <div class="single-book-container"
@@ -56,30 +36,37 @@
             Author: {{author}}</p>
 
           <p>Title: {{ book.title }}</p>
-          <button
-            v-on:click="oneBook($event, book, book.author_name)"
-            v-bind:book="book">Details
-          </button>
 
-          <add-to-fav
+          <Details
             v-bind:src="`https://covers.openlibrary.org/b/id/${book.cover_i}-L.jpg`"
             v-bind:book="book"
+            v-bind:authors="book.author_name"
+          />
+
+          <addToFav
+            v-bind:src="`https://covers.openlibrary.org/b/id/${book.cover_i}-L.jpg`"
+            v-bind:book="book"
+            v-bind:authors="book.author_name"
             v-bind:isLogin="InformationLogin"
           />
 
         </div>
       </div>
+
+    </div>
   </div>
 </template>
 
 <script>
 import connectWithApi from '../utils/connectWithApi';
 import AddToFav from '../components/AddToFav.vue';
+import Details from '../components/Details.vue';
 
 export default {
   name: 'Search',
   components: {
     AddToFav,
+    Details,
   },
 
   data() {
@@ -88,7 +75,6 @@ export default {
       title: '',
       error: '',
       errDetails: '',
-      details: '',
       imgSrc: '',
       author: '',
       InformationLogin: this.$cookies.get('auth'),
@@ -98,23 +84,6 @@ export default {
     async searchBooks() {
       this.books = await connectWithApi.getBooks(this.title);
       this.title = '';
-    },
-
-    async oneBook(event, book, author) {
-      try {
-        const e = event.target.closest('div').firstChild;
-        this.imgSrc = e ? e.getAttribute('src') : '../assets/img/defultCover.png';
-        this.author = author.join(',');
-        this.details = await connectWithApi.getOneBook(book.edition_key[0]);
-        console.log(this.details);
-      } catch (e) {
-        console.log(e);
-        this.errDetails = e ? 'We dont have any information' : '';
-      }
-    },
-
-    close() {
-      this.details = '';
     },
   },
 

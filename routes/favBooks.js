@@ -20,9 +20,6 @@ favBooksRouter
     } catch (e) {
       console.log(e.message);
     }
-
-    // console.log(req.user._id);
-    res.json('zalogowany');
   })
   .put('/', logController, async (req, res) => {
     const { id } = req.user;
