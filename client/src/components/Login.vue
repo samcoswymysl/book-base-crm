@@ -1,8 +1,6 @@
 <template>
   <div class="logginWrapper">
     <div class="loginWindow">
-      <p v-if="loginMessage">{{loginMessage}}</p>
-
     <input
       type="text"
       id="userName"
@@ -18,6 +16,7 @@
     >
     <button @click="login">Login</button>
     </div>
+    <p v-if="loginMessage">{{loginMessage}}</p>
 
   </div>
 
@@ -75,6 +74,12 @@ button{
   color: #e7b1b1;
 }
 button:hover{
+  box-shadow:  0 0 6px 1px #e7b1b1;
+  color: #eb1fb5;
+}
+
+p{
+  font-weight: 800;
   color: #eb1fb5;
 }
 

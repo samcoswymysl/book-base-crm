@@ -2,6 +2,7 @@
   <div class="favWrapper">
     <h1>Your favorite books</h1>
     <p
+      class="unauthorized"
       v-if="authorize"
     >{{ authorize }}</p>
     <div
@@ -81,5 +82,27 @@ export default {
   flex-direction: column;
   margin: 7vh auto 0 2.5vw;
   width: 65vw
+}
+.favBooksList{
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin-top: 50px;
+}
+.book{
+  min-width: 200px;
+  height: 70vh;
+  font-size: 3vh;
+  margin:50px 0;
+  width: 19vw;
+}
+
+img{
+  width: 60%;
+  height: 50%;
+}
+
+p.unauthorized{
+  color: #eb1fb5;
 }
 </style>

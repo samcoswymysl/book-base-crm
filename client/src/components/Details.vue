@@ -1,5 +1,5 @@
 <template>
-  <div class="details Wrapper">
+  <div class="detailsWrapper">
     <div
       class="bookDetails"
       v-if="details!== ''"
@@ -58,8 +58,10 @@ export default {
   },
   methods: {
     async oneBook(event, book) {
+      const key = (typeof book.edition_key === 'string') ? book.edition_key : book.edition_key[0];
+      console.log(key);
       try {
-        this.details = await connectWithApi.getOneBook(book.edition_key[0]);
+        this.details = await connectWithApi.getOneBook(key);
       } catch (e) {
         this.errDetails = e ? 'We dont have any information' : '';
       }
@@ -84,6 +86,31 @@ button{
 }
 
 button:hover{
+  box-shadow:  0 0 6px 1px #e7b1b1;
   color: #eb1fb5;
 }
+
+.bookDetails{
+  padding: 4vh;
+  position: fixed;
+  font-size: 2.7vh;
+  top: 13vh;
+  left: 5vw;
+  width: 60vw;
+  height: 80vh;
+  z-index: 5;
+  background-color:rgba(0, 0, 0, .9);
+  box-shadow:  0 0 6px 1px #e7b1b1;
+}
+
+.bookDetails:hover{
+  box-shadow:  0 0 8px 3px #e7b1b1;
+
+}
+
+img{
+  width: 14vw;
+  height: 17vw;
+}
+
 </style>

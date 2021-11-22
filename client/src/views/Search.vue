@@ -24,8 +24,16 @@
              :item="book"
              :key="book.key"
         >
-          <img class="book-cover-img" v-bind:src="`https://covers.openlibrary.org/b/id/${book.cover_i}-L.jpg`"
+          <img
+            class="book-cover-img"
+            v-if="book.cover_i"
+               :src="`https://covers.openlibrary.org/b/id/${book.cover_i}-L.jpg`"
                :alt="`Cover ${book.title}`">
+          <img
+            class="book-cover-img"
+            v-if="!book.cover_i"
+            :src="defC"
+            alt="book cover">
           <p>{{book.cover}}</p>
 
           <p class="authors"
@@ -36,7 +44,9 @@
 
           <p>Title: {{ book.title }}</p>
 
+        <div class="bookButtons">
           <Details
+            class="details"
             :showAddBtn="true"
             :src="`https://covers.openlibrary.org/b/id/${book.cover_i}-L.jpg`"
             :book="book"
@@ -50,6 +60,7 @@
             :book="book"
             :authors="book.author_name"
           />
+        </div>
 
         </div>
       </div>
@@ -62,6 +73,7 @@
 import connectWithApi from '../utils/connectWithApi';
 import AddToFav from '../components/AddToFav.vue';
 import Details from '../components/Details.vue';
+import defultCover from '../assets/img/defultCover.png';
 
 export default {
   name: 'Search',
@@ -72,6 +84,7 @@ export default {
 
   data() {
     return {
+      defC: defultCover,
       books: [],
       title: '',
       error: '',
@@ -87,7 +100,6 @@ export default {
       this.title = '';
     },
   },
-
 };
 </script>
 
@@ -100,15 +112,6 @@ export default {
   width: 65vw
 }
 
-.book-title-input {
-  padding: 7px 12px;
-  font-size: 14px;
-  background-color: white;
-  border: 1px solid black;
-  border-radius: 5px;
-  outline: none;
-}
-
 .books-container {
   display: flex;
   justify-content: space-around;
@@ -117,12 +120,16 @@ export default {
 }
 
 .single-book-container {
-  margin-bottom: 50px;
-  width: 17%;
+  min-width: 200px;
+  height: 70vh;
+  font-size: 3vh;
+  margin:50px 0;
+  width: 19vw;
 }
 
 .book-cover-img {
-  width: 100%;
+  width: 60%;
+  height: 50%;
 }
 
 input{
@@ -135,20 +142,5 @@ input{
   padding: 6px 10px;
   text-align: center;
   background-color: rgba(0,0,0, 40%);
-}
-
-.bookDetails{
-  background: white;
-  position: -webkit-sticky;
-  position: sticky;
-  top: 15vh;
-  left: 15vw;
-  z-index: 1;
-  width: 70vw;
-  height: 70vh;
-}
-
-.detailsImg{
-  width: 100px;
 }
 </style>

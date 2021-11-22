@@ -1,6 +1,6 @@
 <template>
   <div class="homeWrapper">
-    <h2>Welcome to the LiberyCRM </h2>
+    <h2>Welcome to the Library CRM </h2>
     <p>You can log in here and search for books in the https://openlibrary.org database and after registration you can add your favorite books to your shelf</p>
   </div>
 </template>
@@ -16,11 +16,11 @@ s
 .homeWrapper{
   display: flex;
   flex-direction: column;
-  margin: 7vh auto 0 2.5vw;
+  margin: .5vh auto 0 1vw;
   width: 65vw
 }
 h2{
-  font-size: 2.5em;
+  font-size: 2em;
   font-weight: 900;
   padding: 1em;
 }

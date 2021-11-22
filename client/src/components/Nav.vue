@@ -1,5 +1,6 @@
 <template>
   <div id="nav">
+    <p class="userName"  v-if="userName !== null">Welcome {{userName}}</p>
     <router-link to="/">Home</router-link>
     <router-link to="/search">Search</router-link>
     <router-link to="/about">About</router-link>
@@ -48,6 +49,7 @@ export default {
   },
   data() {
     return {
+      userName: this.$cookies.get('userName'),
       registerWindow: false,
       loginWindow: false,
       isLogin: this.$cookies.get('auth'),
@@ -74,7 +76,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 
 *{
   margin: 0;
@@ -103,5 +105,15 @@ a{
 
 a:hover{
   color:#eb1fb5;
+}
+
+p.userName{
+  padding: 5px;
+  font-weight: bold;
+  font-size: 115%;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #eb1fb5;
+  border-bottom: 1px solid #eb1fb5;
 }
 </style>

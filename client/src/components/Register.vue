@@ -1,14 +1,7 @@
 <template>
   <div class="registerWrapper">
     <div class="register-window">
-      <p
-        class="error-valid"
-        v-if="error"
-      >
-        {{error}}
-      </p>
 
-    <p v-if="serverAnswer">{{serverAnswer.message}}</p>
     <input
       type="text"
       id="name"
@@ -30,6 +23,15 @@
       id="register"
     >Register</button>
     </div>
+    <p
+      class="error-valid"
+      v-if="error"
+    >
+      {{error}}
+    </p>
+
+    <p v-if="serverAnswer">{{serverAnswer.message}}</p>
+
   </div>
 </template>
 
@@ -89,6 +91,12 @@ button{
   color: #e7b1b1;
 }
 button:hover{
+  box-shadow:  0 0 6px 1px #e7b1b1;
+  color: #eb1fb5;
+}
+
+p{
+  font-weight: 800;
   color: #eb1fb5;
 }
 

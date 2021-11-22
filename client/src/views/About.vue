@@ -1,6 +1,6 @@
 <template>
   <div class="aboutWrapper">
-  <h2>About Library CRM</h2>
+  <h1>About Library CRM</h1>
     <p>Hello in our little app. It was created as part of learning JavaScript programming using the
        Express and Vue frameworks and with the use of MongoDB.
        The application allows you to search for books in the API
@@ -21,7 +21,10 @@ export default {
   display: flex;
   flex-direction: column;
   margin: 7vh auto 0 2.5vw;
-  width: 65vw
+  width: 65vw;
+  padding: 4vw;
 }
-
+p{
+  text-transform: uppercase;
+}
 </style>

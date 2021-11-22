@@ -53,7 +53,6 @@ export default {
   display: flex;
   flex-direction: row-reverse;
   max-height: 100vw;
-  overflow: hidden;
   font-family: 'Arima Madurai', sans-serif;
   text-align: center;
   color: #e7b1b1;
