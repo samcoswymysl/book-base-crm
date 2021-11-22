@@ -1,8 +1,6 @@
 import Unauthorized from './errors';
 
 export default class ConnectWithServ {
-  // Registr
-
   static addUser(name, password) {
     return new Promise((resolve, reject) => {
       try {

@@ -1,7 +1,7 @@
 <template>
   <div class="deleteFavWrapper">
     <p v-if="error">{{error}}</p>
-    <button v-on:click="deleteFav">Delete on fav</button>
+    <button @click="deleteFav">Delete on fav</button>
   </div>
 
 </template>

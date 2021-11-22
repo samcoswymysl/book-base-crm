@@ -1,6 +1,6 @@
 <template>
   <div class="logoutWrapper">
-  <button v-on:click="logoutUser">Logout</button>
+  <button @click="logoutUser">Logout</button>
     <p v-if="response">{{response}}</p>
   </div>
 </template>

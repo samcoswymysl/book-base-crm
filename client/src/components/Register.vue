@@ -27,7 +27,7 @@
     >
     <label for="register">Register</label>
     <input
-      v-on:click="validForm"
+      @click="validForm"
       type="submit"
       id="register"
     >

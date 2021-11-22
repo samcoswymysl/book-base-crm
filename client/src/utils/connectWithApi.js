@@ -1,17 +1,8 @@
 export default class ConnectApi {
   static sortAlgorytm(docs) {
-    const front = [];
-    const back = [];
-
-    // eslint-disable-next-line array-callback-return
-    docs.map((doc) => {
-      if (!doc.cover_i) {
-        back.push(doc);
-        return;
-      }
-      front.push(doc);
-    });
-    return [...front, ...back];
+    const sorted = [];
+    docs.map((doc) => ((doc.cover_i) ? sorted.unshift(doc) : sorted.push(doc)));
+    return sorted;
   }
 
   static getBooks(title) {

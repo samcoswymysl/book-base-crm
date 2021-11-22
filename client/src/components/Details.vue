@@ -4,10 +4,10 @@
       class="bookDetails"
       v-if="details!== ''"
     >
-      <img class="detailsImg" :src="`${src}`"  alt="">
+      <img class="detailsImg" :src="`${src}`"  :alt="`Cower ${book.title}`">
       <p
         v-for="(author, index) in authors"
-        v-bind:key="index"
+        :key="index"
       >Authors: {{author}}
       </p>
       <p v-if="details.title">Title: {{details.title}}</p>
@@ -16,19 +16,20 @@
       <p v-if="details.description">Description: {{details.description}} </p>
       <button
         class="close"
-        v-on:click="close"
+        @click="close"
       >Close</button>
       <AddToFav
-      v-bind:src="src"
-      v-bind:authors="authors"
-      v-bind:book="book"
+        v-if="isLogin !== null && showAddBtn"
+        :src="src"
+        :authors="authors"
+        :book="book"
       />
 
     </div>
 
     <button
-      v-on:click="oneBook($event, book, book.author_name)"
-      v-bind:book="book">Details
+      @click="oneBook($event, book, book.author_name)"
+      :book="book">Details
     </button>
   </div>
 </template>
@@ -43,6 +44,7 @@ export default {
     AddToFav,
   },
   props: {
+    showAddBtn: Boolean,
     src: String,
     authors: Array,
     book: Object,
@@ -51,6 +53,7 @@ export default {
   data() {
     return {
       details: '',
+      isLogin: this.$cookies.get('auth'),
     };
   },
   methods: {

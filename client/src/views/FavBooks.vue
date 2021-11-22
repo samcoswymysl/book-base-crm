@@ -11,22 +11,23 @@
       <div
         class="book"
         v-for="(book) in favBookArr"
-        v-bind:key="book.bookEditionKey"
+        :key="book.bookEditionKey"
       >
-        <img v-bind:src="`${book.coverSrc}`" v-bind:alt="`Cover book ${book.title}`">
+        <img :src="`${book.coverSrc}`" :alt="`Cover book ${book.title}`">
         <p>{{book.title}}</p>
         <p
           v-for="(author, index) in book.authors"
-          v-bind:key="index"
+          :key="index"
         >{{author}}</p>
         <Details
-          v-bind:src="book.coverSrc"
-          v-bind:book="book"
-          v-bind:authors="book.authors"
+          :showAddBtn="false"
+          :src="book.coverSrc"
+          :book="book"
+          :authors="book.authors"
         />
         <DeleteFav
-        v-bind:book="book"
-        v-on:refresh="refreshBooks"
+        :book="book"
+        @refresh="refreshBooks"
         />
 
       </div>

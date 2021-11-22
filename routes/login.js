@@ -1,5 +1,4 @@
 const dotenv = require('dotenv');
-
 dotenv.config({ path: '../.env' });
 const express = require('express');
 const passport = require('passport');

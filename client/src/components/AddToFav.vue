@@ -12,12 +12,11 @@
     </p>
     <button
       class="addToFav"
-      v-on:click="sendFavBook"
+      @click="sendFavBook"
     >
     Add to Favorite</button>
   </div>
 </template>
-import Conn
 
 <script>
 import ConnectWithServ from '../utils/connectWithServ';

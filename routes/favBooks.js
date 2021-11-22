@@ -34,9 +34,6 @@ favBooksRouter
           favBooks: book,
         },
       });
-      if (!user.matchedCount) {
-        throw new Error('Cannot find this ID i DB');
-      }
 
       res.json(`${book.title} add to your favorite books`);
     } catch (e) {

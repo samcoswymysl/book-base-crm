@@ -11,12 +11,12 @@
       >
         <button
           v-if="isLogin === null"
-          v-on:click="register"
+          @click="register"
         >Register
         </button>
         <button
           v-if="isLogin === null"
-          v-on:click="login"
+          @click="login"
         >Login</button>
 
         <Register
@@ -24,12 +24,12 @@
         />
         <Login
           v-if="loginWindow"
-          v-on:change="check"
+          @change="check"
         />
       </div>
       <Logout
         v-if="isLogin !== null"
-        v-on:change="check"
+        @change="check"
       />
 
     </div>
@@ -57,7 +57,6 @@ export default {
       registerWindow: false,
       loginWindow: false,
       isLogin: this.$cookies.get('auth'),
-
     };
   },
 

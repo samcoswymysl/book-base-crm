@@ -7,25 +7,21 @@ const User = require('../models/User');
 passport.use(
   new LocalStrategy({ usernameField: 'name', session: false }, async (name, password, done) => {
     try {
-      // checking if the user exists
       const userFind = await User.findOne({ name });
       if (userFind === null) {
         return done(null, false, { message: `User ${name} doesn't exist` });
       }
-      // password checking
-
       await compare(password, userFind.password, (err, isMatch) => {
-        if (err) { // check error
+        if (err) {
           throw err;
         }
 
-        if (isMatch) { // if password is ok
+        if (isMatch) {
           return done(null, userFind);
         }
         return done(null, false, { message: 'Incorrect password' });
       });
     } catch (e) {
-      console.log(e.message);
       return done(null, false, e.message);
     }
   }),

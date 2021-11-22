@@ -6,7 +6,7 @@ const BookSchema = new mongoose.Schema({
     coverSrc: String,
     bookEditionKey: {
       type: String,
-      unique: true,
+      // unique: true,
     },
   },
 });

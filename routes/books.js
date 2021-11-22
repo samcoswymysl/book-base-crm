@@ -9,7 +9,6 @@ const booksRouter = express.Router();
 
 booksRouter
 
-// Get all books for db
   .get('/', async (req, res) => {
     console.log('jestem tutaj');
     try {
