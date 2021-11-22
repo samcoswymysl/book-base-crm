@@ -10,7 +10,6 @@
       <div class="books">
           <label for="title"></label>
           <input
-            class="book-title-input"
             type="text"
             id="title"
             v-model="title"
@@ -93,17 +92,12 @@ export default {
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap');
-
-* {
-  font-family: 'Poppins', sans-serif;
-}
 
 .search-wrapper {
   display: flex;
   flex-direction: column;
-  margin: 0 auto;
-  width: 80%
+  margin: 7vh auto 0 2.5vw;
+  width: 65vw
 }
 
 .book-title-input {
@@ -114,25 +108,6 @@ export default {
   border-radius: 5px;
   outline: none;
 }
-
-.book-title-input {
-  margin-right: 5px;
-  color: lightslategrey;
-}
-
-.book-title-input:focus {
-  color: black;
-}
-/*.find-book-button {*/
-/*  color: black;*/
-/*  cursor: pointer;*/
-/*  transition: color .3s, background-color .3s;*/
-/*}*/
-
-/*.find-book-button:hover {*/
-/*  color: white;*/
-/*  background-color: black;*/
-/*}*/
 
 .books-container {
   display: flex;
@@ -148,6 +123,18 @@ export default {
 
 .book-cover-img {
   width: 100%;
+}
+
+input{
+  width: 30vw;
+  display: block;
+  margin: 15px auto;
+  border-radius: 15px;
+  border: 1px solid #e7b1b1;
+  color: #e7b1b1;
+  padding: 6px 10px;
+  text-align: center;
+  background-color: rgba(0,0,0, 40%);
 }
 
 .bookDetails{

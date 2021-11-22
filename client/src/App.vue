@@ -1,107 +1,65 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/search">Search</router-link> |
-      <router-link to="/about">About</router-link> |
-      <router-link to="/favorite" ref="fav" >Your Favorite Books</router-link> |
-      <div
-        class="user"
-        v-if=" this.$cookies.get('auth') === null"
-      >
-        <button
-          v-if="isLogin === null"
-          @click="register"
-        >Register
-        </button>
-        <button
-          v-if="isLogin === null"
-          @click="login"
-        >Login</button>
-
-        <Register
-          v-if="registerWindow"
-        />
-        <Login
-          v-if="loginWindow"
-          @change="check"
-        />
-      </div>
-      <Logout
-        v-if="isLogin !== null"
-        @change="check"
-      />
-
-    </div>
+    <video autoplay muted loop id="myVideo">
+      <source :src="`${video}`" type="video/mp4">
+    </video>
+    <Nav class="nav"/>
 
     <router-view/>
-
   </div>
 </template>
 <script>
-
-import Register from './components/Register.vue';
-import Login from './components/Login.vue';
-import Logout from './components/Logout.vue';
+import video from './assets/video/background.mp4';
+import Nav from './components/Nav.vue';
 
 export default {
   name: 'App',
   components: {
-    Register,
-    Login,
-    Logout,
-
+    Nav,
   },
   data() {
     return {
-      registerWindow: false,
-      loginWindow: false,
-      isLogin: this.$cookies.get('auth'),
+      video: '',
     };
   },
-
-  methods: {
-    register() {
-      this.registerWindow = !this.registerWindow;
-      this.loginWindow = false;
-    },
-    login() {
-      this.loginWindow = !this.loginWindow;
-      this.registerWindow = false;
-    },
-    check() {
-      this.isLogin = this.$cookies.get('auth');
-      this.registerWindow = false;
-      this.loginWindow = false;
-      this.$router.go();
-    },
+  mounted() {
+    this.video = video;
   },
 };
 </script>
 
 <style>
-body{
-  background-color: gray;
+/*Video DziarskiLisek from Pixabay*/
+
+@import url('https://fonts.googleapis.com/css2?family=Arima+Madurai:wght@200;400;700&display=swap');
+
+#myVideo {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  z-index: -1;
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  border: none;
+  box-sizing: border-box;
 }
 
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  flex-direction: row-reverse;
+  max-height: 100vw;
+  overflow: hidden;
+  font-family: 'Arima Madurai', sans-serif;
   text-align: center;
-  color: #2c3e50;
+  color: #e7b1b1;
+  display: flex;
 }
 
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+.nav{
 }
 </style>

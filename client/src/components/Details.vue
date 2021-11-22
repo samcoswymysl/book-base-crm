@@ -73,5 +73,17 @@ export default {
 </script>
 
 <style scoped>
+button{
+  display: block;
+  margin: 5px auto;
+  padding: 5px 15px;
+  border-radius: 10px;
+  background-color: rgba(0,0,0, 40%);
+  border: 1px solid #e7b1b1;
+  color: #e7b1b1;
+}
 
+button:hover{
+  color: #eb1fb5;
+}
 </style>

@@ -2,16 +2,18 @@
   <div class="logginWrapper">
     <div class="loginWindow">
       <p v-if="loginMessage">{{loginMessage}}</p>
-    <label for="userName" >Your Nick</label>
+
     <input
       type="text"
       id="userName"
+      placeholder="Your login"
       v-model="name"
     >
-    <label for="userPass">Your Password</label>
+
     <input
       type="password"
       id="userPass"
+      placeholder="Password"
       v-model="password"
     >
     <button @click="login">Login</button>
@@ -50,5 +52,30 @@ export default {
 </script>
 
 <style scoped>
+
+input{
+  width: 10vw;
+  display: block;
+  margin: 10px auto;
+  border-radius: 10px;
+  border: 1px solid #e7b1b1;
+  color: #e7b1b1;
+  padding: 3px 5px;
+  text-align: center;
+  background-color: rgba(0,0,0, 40%);
+}
+
+button{
+  display: block;
+  margin: 5px auto;
+  padding: 5px 15px;
+  border-radius: 10px;
+  background-color: rgba(0,0,0, 40%);
+  border: 1px solid #e7b1b1;
+  color: #e7b1b1;
+}
+button:hover{
+  color: #eb1fb5;
+}
 
 </style>

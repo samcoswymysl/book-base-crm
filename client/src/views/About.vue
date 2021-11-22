@@ -17,5 +17,11 @@ export default {
 </script>
 
 <style>
+.aboutWrapper{
+  display: flex;
+  flex-direction: column;
+  margin: 7vh auto 0 2.5vw;
+  width: 65vw
+}
 
 </style>

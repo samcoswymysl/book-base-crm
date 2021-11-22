@@ -11,7 +11,9 @@
     "core-js": "^3.6.5",
     "vue": "^2.6.11",
     "vue-cookies": "^1.7.4",
-    "vue-router": "^3.5.3"
+    "vue-responsive-video-background-player": "^2.2.0",
+    "vue-router": "^3.5.3",
+    "vue-videobg": "^2.0.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",

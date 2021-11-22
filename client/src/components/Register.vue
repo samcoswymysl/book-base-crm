@@ -9,28 +9,26 @@
       </p>
 
     <p v-if="serverAnswer">{{serverAnswer.message}}</p>
-    <label for="name">Your name</label>
     <input
       type="text"
       id="name"
-      placeholder="Min 4 at"
+      placeholder="Your name"
       required
       v-model="name"
     >
-    <label for="password">Your name</label>
     <input
       type="password"
       id="password"
-      placeholder="Min 6 at"
+      placeholder="Password"
       required
       v-model="password"
     >
-    <label for="register">Register</label>
-    <input
+
+    <button
       @click="validForm"
       type="submit"
       id="register"
-    >
+    >Register</button>
     </div>
   </div>
 </template>
@@ -69,5 +67,29 @@ export default {
 </script>
 
 <style scoped>
+input{
+  width: 10vw;
+  display: block;
+  margin: 10px auto;
+  border-radius: 10px;
+  border: 1px solid #e7b1b1;
+  color: #e7b1b1;
+  padding: 3px 5px;
+  text-align: center;
+  background-color: rgba(0,0,0, 40%);
+}
+
+button{
+  display: block;
+  margin: 5px auto;
+  padding: 5px 15px;
+  border-radius: 10px;
+  background-color: rgba(0,0,0, 40%);
+  border: 1px solid #e7b1b1;
+  color: #e7b1b1;
+}
+button:hover{
+  color: #eb1fb5;
+}
 
 </style>
