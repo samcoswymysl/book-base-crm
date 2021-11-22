@@ -36,7 +36,6 @@
         <p v-if="details.isbn_13">ISBN 13: {{details.isbn_13[0]}}</p>
         <p v-if="details.description">Description: {{details.description}} </p>
         <button class="close" v-on:click="close">Close</button>
-
       </div>
     </div>
 
@@ -62,6 +61,12 @@
             v-bind:book="book">Details
           </button>
 
+          <add-to-fav
+            v-bind:src="`https://covers.openlibrary.org/b/id/${book.cover_i}-L.jpg`"
+            v-bind:book="book"
+            v-bind:isLogin="InformationLogin"
+          />
+
         </div>
       </div>
   </div>
@@ -69,9 +74,14 @@
 
 <script>
 import connectWithApi from '../utils/connectWithApi';
+import AddToFav from '../components/AddToFav.vue';
 
 export default {
   name: 'Search',
+  components: {
+    AddToFav,
+  },
+
   data() {
     return {
       books: [],
@@ -81,6 +91,7 @@ export default {
       details: '',
       imgSrc: '',
       author: '',
+      InformationLogin: this.$cookies.get('auth'),
     };
   },
   methods: {

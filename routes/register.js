@@ -3,7 +3,6 @@ const { hash } = require('bcrypt');
 
 const User = require('../models/User');
 
-
 const registerRouter = express.Router();
 
 registerRouter.post('/', async (req, res, next) => {

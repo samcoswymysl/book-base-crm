@@ -89,4 +89,38 @@ export default class ConnectWithServ {
         });
     });
   }
+
+  static addToFav(token, bookInfo) {
+    return new Promise((resolve) => {
+      fetch('http://localhost:3000/fav', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token,
+        },
+        body: JSON.stringify({ book: bookInfo }),
+      })
+        .then((res) => {
+          if (res.status !== 200) {
+            if (res.status === 401) {
+              throw new Unauthorized();
+            }
+            throw new Error();
+          }
+          return res.json();
+        })
+        .then((data) => {
+          console.log(data);
+          resolve(data);
+        })
+        .catch((e) => {
+          console.log(e instanceof Unauthorized);
+          if (e instanceof Unauthorized) {
+            resolve('You must Login');
+          } else {
+            resolve('Sorry Ty Later');
+          }
+        });
+    });
+  }
 }

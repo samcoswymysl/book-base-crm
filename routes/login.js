@@ -20,11 +20,10 @@ loginRouter.post('/', (req, res, next) => {
         if (er) {
           return res.json(er.message);
         }
-        const token = jtw.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '60s' }); //TODO add time how you can use the token
-        console.log(token);
+        const token = jtw.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' }); // TODO add time how you can use the token
         res.cookie('auth', ` Bearer ${token}`, {
           path: 'http://localhost:8080',
-          maxAge: 1000 * 60, //todo add maxAge cookies
+          maxAge: 1000 * 60 * 60, // todo add maxAge cookies
         });
         return res.json('Login successful');
       });

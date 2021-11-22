@@ -11,7 +11,7 @@ booksRouter
 
 // Get all books for db
   .get('/', async (req, res) => {
-    console.log('jestem tutaj')
+    console.log('jestem tutaj');
     try {
       const books = await Book.find();
       const books2 = await books.map((el) => ({

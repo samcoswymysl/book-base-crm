@@ -12,9 +12,7 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  favBooks: {
-    type: Array,
-  },
+  favBooks: Array,
 });
 
 module.exports = mongoose.model('User', UserSchema);
