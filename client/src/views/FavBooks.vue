@@ -24,6 +24,10 @@
           v-bind:book="book"
           v-bind:authors="book.authors"
         />
+        <DeleteFav
+        v-bind:book="book"
+        v-on:refresh="refreshBooks"
+        />
 
       </div>
     </div>
@@ -33,21 +37,31 @@
 <script>
 import ConnectWithServ from '../utils/connectWithServ';
 import Details from '../components/Details.vue';
+import DeleteFav from '../components/DeleteFav.vue';
 
 export default {
   name: 'FavBooks',
   components: {
     Details,
+    DeleteFav,
   },
 
   data() {
     return {
-
       authorize: '',
       favBookArr: [],
     };
   },
-  methods: {},
+  methods: {
+    async refreshBooks() {
+      if (this.$cookies.get('auth') === null) {
+        this.authorize = 'You must Login';
+        return;
+      }
+      this.favBookArr = await ConnectWithServ.getFavorite(this.$cookies.get('auth'));
+    },
+
+  },
 
   async created() {
     if (this.$cookies.get('auth') === null) {

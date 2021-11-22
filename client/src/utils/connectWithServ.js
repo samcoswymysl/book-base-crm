@@ -19,7 +19,6 @@ export default class ConnectWithServ {
         })
           .then((res) => res.json())
           .then((data) => {
-            console.log(data);
             resolve(data);
           });
       } catch (e) {
@@ -39,20 +38,11 @@ export default class ConnectWithServ {
           name,
           password,
         }),
-
         credentials: 'include',
-
       })
-        .then((res) => {
-          console.log(res.headers.get('Set-Cookie'));
-          return res.json();
-        })
-        .then((data) => {
-          console.log(data);
-          resolve(data);
-        })
-        .catch((e) => {
-          console.log(e.status);
+        .then((res) => res.json())
+        .then((data) => resolve(data))
+        .catch(() => {
           resolve('Error try later');
         });
     });
@@ -75,12 +65,8 @@ export default class ConnectWithServ {
           }
           return res.json();
         })
-        .then((data) => {
-          console.log(data);
-          resolve(data);
-        })
+        .then((data) => resolve(data))
         .catch((e) => {
-          console.log(e instanceof Unauthorized);
           if (e instanceof Unauthorized) {
             resolve('You must Login');
           } else {
@@ -109,17 +95,56 @@ export default class ConnectWithServ {
           }
           return res.json();
         })
-        .then((data) => {
-          console.log(data);
-          resolve(data);
-        })
+        .then((data) => resolve(data))
         .catch((e) => {
-          console.log(e instanceof Unauthorized);
           if (e instanceof Unauthorized) {
             resolve('You must Login');
           } else {
             resolve('Sorry Ty Later');
           }
+        });
+    });
+  }
+
+  static deleteOnFav(token, bookInfo) {
+    return new Promise((resolve) => {
+      fetch('http://localhost:3000/fav', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token,
+        },
+        body: JSON.stringify({ book: bookInfo }),
+      })
+        .then((res) => {
+          if (res.status !== 200) {
+            if (res.status === 401) {
+              throw new Unauthorized();
+            }
+            throw new Error();
+          }
+          return res.json();
+        })
+        .then((data) => resolve(data))
+        .catch((e) => {
+          if (e instanceof Unauthorized) {
+            resolve('You must Login');
+          } else {
+            resolve('Sorry Ty Later');
+          }
+        });
+    });
+  }
+
+  static logout() {
+    return new Promise((resolve) => {
+      fetch('http://localhost:3000/logout', {
+        credentials: 'include',
+      })
+        .then((res) => res.json())
+        .then((res) => resolve(res))
+        .catch(() => {
+          resolve('Error try later');
         });
     });
   }

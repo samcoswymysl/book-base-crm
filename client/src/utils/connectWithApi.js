@@ -15,32 +15,27 @@ export default class ConnectApi {
   }
 
   static getBooks(title) {
-    return new Promise((resolve, reject) => {
-      try {
-        fetch(`http://openlibrary.org/search.json?q=${title}`)
-          .then((res) => res.json())
-          .then((res) => {
-            const sorted = this.sortAlgorytm(res.docs);
-            console.log(sorted);
-            return resolve(sorted);
-          });
-      } catch (e) {
-        reject(e);
-        console.log(e.message);
-      }
+    return new Promise((resolve) => {
+      fetch(`http://openlibrary.org/search.json?q=${title}`)
+        .then((res) => res.json())
+        .then((res) => {
+          const sorted = this.sortAlgorytm(res.docs);
+          return resolve(sorted);
+        })
+        .catch(() => {
+          resolve('Error try later');
+        });
     });
   }
 
   static getOneBook(key) {
-    return new Promise((resolve, reject) => {
-      try {
-        fetch(`https://openlibrary.org/books/${key}.json`)
-          .then((res) => res.json())
-          .then((res) => resolve(res));
-      } catch (e) {
-        reject(e);
-        console.log(e.message);
-      }
+    return new Promise((resolve) => {
+      fetch(`https://openlibrary.org/books/${key}.json`)
+        .then((res) => res.json())
+        .then((res) => resolve(res))
+        .catch(() => {
+          resolve('Error try later');
+        });
     });
   }
 }

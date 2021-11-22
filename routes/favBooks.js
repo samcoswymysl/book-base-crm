@@ -1,7 +1,6 @@
 const express = require('express');
-const mongoose = require('mongoose');
 
-const logController = require('../middlewares/auth'); const Book = require('../models/Book');
+const logController = require('../middlewares/auth');
 const User = require('../models/User');
 
 const favBooksRouter = express.Router();
@@ -18,7 +17,7 @@ favBooksRouter
       const user = await User.findById(id);
       res.json(user.favBooks);
     } catch (e) {
-      console.log(e.message);
+      res.json(e.message);
     }
   })
   .put('/', logController, async (req, res) => {
@@ -44,7 +43,25 @@ favBooksRouter
       res.json(e.message);
     }
   })
-  .delete('/');
+  .delete('/', logController, async (req, res) => {
+    const { id } = req.user;
+    const { book } = req.body;
+
+    try {
+      if (!id.match(/^[0-9a-fA-F]{24}$/)) {
+        throw new Error('Your ID have wrong format ');
+      }
+
+      const user = await User.findByIdAndUpdate({ _id: id }, {
+        $pull: {
+          favBooks: { edition_key: book.edition_key },
+        },
+      });
+      res.json(user.favBooks);
+    } catch (e) {
+      res.json(e.message);
+    }
+  });
 
 module.exports = {
   favBooksRouter,

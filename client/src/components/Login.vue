@@ -42,7 +42,7 @@ export default {
       }
       this.loginMessage = await ConnectWithServ.login(this.name, this.password);
       if (this.loginMessage === 'Login successful') {
-        this.$router.go();
+        this.$emit('change');
       }
     },
   },

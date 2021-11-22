@@ -2,7 +2,7 @@
   <div class="details Wrapper">
     <div
       class="bookDetails"
-      v-if="details!==''"
+      v-if="details!== ''"
     >
       <img class="detailsImg" :src="`${src}`"  alt="">
       <p
@@ -14,7 +14,16 @@
       <p v-if="details.isbn_10">ISBN 10: {{details.isbn_10[0]}}</p>
       <p v-if="details.isbn_13">ISBN 13: {{details.isbn_13[0]}}</p>
       <p v-if="details.description">Description: {{details.description}} </p>
-      <button class="close" v-on:click="close">Close</button>
+      <button
+        class="close"
+        v-on:click="close"
+      >Close</button>
+      <AddToFav
+      v-bind:src="src"
+      v-bind:authors="authors"
+      v-bind:book="book"
+      />
+
     </div>
 
     <button
@@ -26,27 +35,29 @@
 
 <script>
 import connectWithApi from '../utils/connectWithApi';
+import AddToFav from './AddToFav.vue';
 
 export default {
   name: 'Details',
+  components: {
+    AddToFav,
+  },
   props: {
     src: String,
     authors: Array,
     book: Object,
+
   },
   data() {
     return {
       details: '',
-
     };
   },
   methods: {
     async oneBook(event, book) {
       try {
         this.details = await connectWithApi.getOneBook(book.edition_key[0]);
-        console.log(this.details);
       } catch (e) {
-        console.log(e);
         this.errDetails = e ? 'We dont have any information' : '';
       }
     },

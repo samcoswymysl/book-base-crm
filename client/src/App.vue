@@ -1,17 +1,81 @@
 <template>
   <div id="app">
-    <Nav/>
+    <div id="nav">
+      <router-link to="/">Home</router-link> |
+      <router-link to="/search">Search</router-link> |
+      <router-link to="/about">About</router-link> |
+      <router-link to="/favorite" ref="fav" >Your Favorite Books</router-link> |
+      <div
+        class="user"
+        v-if=" this.$cookies.get('auth') === null"
+      >
+        <button
+          v-if="isLogin === null"
+          v-on:click="register"
+        >Register
+        </button>
+        <button
+          v-if="isLogin === null"
+          v-on:click="login"
+        >Login</button>
+
+        <Register
+          v-if="registerWindow"
+        />
+        <Login
+          v-if="loginWindow"
+          v-on:change="check"
+        />
+      </div>
+      <Logout
+        v-if="isLogin !== null"
+        v-on:change="check"
+      />
+
+    </div>
+
+    <router-view/>
 
   </div>
 </template>
 <script>
 
-import Nav from './components/Nav.vue';
+import Register from './components/Register.vue';
+import Login from './components/Login.vue';
+import Logout from './components/Logout.vue';
 
 export default {
   name: 'App',
   components: {
-    Nav,
+    Register,
+    Login,
+    Logout,
+
+  },
+  data() {
+    return {
+      registerWindow: false,
+      loginWindow: false,
+      isLogin: this.$cookies.get('auth'),
+
+    };
+  },
+
+  methods: {
+    register() {
+      this.registerWindow = !this.registerWindow;
+      this.loginWindow = false;
+    },
+    login() {
+      this.loginWindow = !this.loginWindow;
+      this.registerWindow = false;
+    },
+    check() {
+      this.isLogin = this.$cookies.get('auth');
+      this.registerWindow = false;
+      this.loginWindow = false;
+      this.$router.go();
+    },
   },
 };
 </script>

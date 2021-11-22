@@ -44,10 +44,10 @@
           />
 
           <addToFav
+            v-if="isLogin !== null"
             v-bind:src="`https://covers.openlibrary.org/b/id/${book.cover_i}-L.jpg`"
             v-bind:book="book"
             v-bind:authors="book.author_name"
-            v-bind:isLogin="InformationLogin"
           />
 
         </div>
@@ -77,7 +77,7 @@ export default {
       errDetails: '',
       imgSrc: '',
       author: '',
-      InformationLogin: this.$cookies.get('auth'),
+      isLogin: this.$cookies.get('auth'),
     };
   },
   methods: {

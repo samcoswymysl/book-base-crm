@@ -26,7 +26,6 @@ export default {
   name: 'AddToFav',
   props: {
     src: String,
-    isLogin: String,
     authors: Array,
     book: Object,
   },
@@ -40,14 +39,14 @@ export default {
         title: this.book.title,
         authors: this.book.author_name,
         coverSrc: this.src,
-        edition_key: this.book.edition_key,
+        edition_key: this.book.edition_key[0],
       },
     };
   },
 
   methods: {
     async sendFavBook() {
-      if (this.isLogin === null) {
+      if (this.token === null) {
         this.error = 'You must login if you want add books to your favorite';
         return;
       }

@@ -12,6 +12,7 @@ const { registerRouter } = require('./routes/register');
 const { loginRouter } = require('./routes/login');
 const { favBooksRouter } = require('./routes/favBooks');
 const { passport } = require('./config/passport');
+const { logoutRouter } = require('./routes/logout')
 
 const app = express();
 // app.use(passport.)
@@ -30,6 +31,7 @@ app.use('/books', booksRouter);
 app.use('/register', registerRouter);
 app.use('/login', loginRouter);
 app.use('/fav', favBooksRouter);
+app.use('/logout', logoutRouter);
 
 mongoose.connect(process.env.DB_CONECTION.toString(), () => {
   console.log('Connect db mongos');
