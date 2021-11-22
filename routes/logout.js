@@ -4,6 +4,7 @@ const logoutRouter = expres.Router();
 
 logoutRouter.get('/', (req, res) => {
   res.clearCookie('auth');
+  res.clearCookie('userName');
   res.json('You has been logout');
 });
 
