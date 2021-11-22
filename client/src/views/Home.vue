@@ -1,7 +1,7 @@
 <template>
   <div class="homeWrapper">
     <h2>Welcome to the Library CRM </h2>
-    <p>You can log in here and search for books in the https://openlibrary.org database and after registration you can add your favorite books to your shelf</p>
+    <p>You can log in here and search your favorite books in the https://openlibrary.org database and after registration you can add your favorite books to your shelf</p>
   </div>
 </template>
 
