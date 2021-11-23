@@ -63,7 +63,7 @@ button{
   margin: 5px auto;
   padding: 5px 15px;
   border-radius: 10px;
-  background-color: rgba(0,0,0, 40%);
+  background-color: rgba(0,0,0, .4);
   border: 1px solid #e7b1b1;
   color: #e7b1b1;
 }

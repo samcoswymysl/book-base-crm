@@ -59,7 +59,6 @@ export default {
   methods: {
     async oneBook(event, book) {
       const key = (typeof book.edition_key === 'string') ? book.edition_key : book.edition_key[0];
-      console.log(key);
       try {
         this.details = await connectWithApi.getOneBook(key);
       } catch (e) {
@@ -80,7 +79,7 @@ button{
   margin: 5px auto;
   padding: 5px 15px;
   border-radius: 10px;
-  background-color: rgba(0,0,0, 40%);
+  background-color: rgba(0,0,0, .4);
   border: 1px solid #e7b1b1;
   color: #e7b1b1;
 }

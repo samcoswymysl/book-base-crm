@@ -105,4 +105,14 @@ img{
 p.unauthorized{
   color: #eb1fb5;
 }
+
+@media (min-width: 700px) {
+  h1 {
+    font-size: 3em;
+  }
+
+  img {
+    height: 35%;
+  }
+}
 </style>

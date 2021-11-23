@@ -69,8 +69,10 @@ export default {
 </script>
 
 <style scoped>
+
 input{
-  width: 10vw;
+  max-width: 10vw;
+  min-width: 65px;
   display: block;
   margin: 10px auto;
   border-radius: 10px;
@@ -78,7 +80,8 @@ input{
   color: #e7b1b1;
   padding: 3px 5px;
   text-align: center;
-  background-color: rgba(0,0,0, 40%);
+  background-color: rgba(0,0,0, .4);
+  font-size: 2.5vw;
 }
 
 button{
@@ -86,7 +89,7 @@ button{
   margin: 5px auto;
   padding: 5px 15px;
   border-radius: 10px;
-  background-color: rgba(0,0,0, 40%);
+  background-color: rgba(0,0,0, .4);
   border: 1px solid #e7b1b1;
   color: #e7b1b1;
 }
@@ -100,4 +103,14 @@ p{
   color: #eb1fb5;
 }
 
+@media (min-width: 600px) {
+  input {
+    min-width: 200px;
+  }
+
+  button {
+    font-size: 1.4em;
+    min-width: 150px;
+  }
+}
 </style>

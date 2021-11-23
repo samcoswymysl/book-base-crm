@@ -1,5 +1,4 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const Book = require('../models/Book');
 
 const booksRouter = express.Router();
@@ -86,7 +85,7 @@ booksRouter
       const savedBook = await book.save();
       res.json(savedBook);
     } catch (err) {
-      res.json(er.message);
+      res.json(err.message);
     }
   })
 

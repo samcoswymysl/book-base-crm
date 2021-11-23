@@ -77,22 +77,15 @@ export default {
 </script>
 
 <style scoped>
-
-*{
-  margin: 0;
-  padding: 0;
-  border: none;
-  box-sizing: border-box;
-}
-
 #nav {
   display: flex;
   position: fixed;
   width: 30%;
   height: 100vh;
   padding: .1em;
+  margin-top: 6vh;
   flex-direction: column;
-  background-color: rgba(0,0,0,10%);
+  background-color: rgba(0,0,0,.1);
 
 }
 
@@ -115,5 +108,11 @@ p.userName{
   letter-spacing: 1px;
   color: #eb1fb5;
   border-bottom: 1px solid #eb1fb5;
+}
+
+@media (min-width: 700px) {
+  a{
+    font-size: 1.3em;
+  }
 }
 </style>

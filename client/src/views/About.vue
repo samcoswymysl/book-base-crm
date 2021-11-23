@@ -16,7 +16,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .aboutWrapper{
   display: flex;
   flex-direction: column;
@@ -26,5 +26,15 @@ export default {
 }
 p{
   text-transform: uppercase;
+}
+
+@media (min-width: 700px) {
+  h1 {
+    font-size: 3em;
+  }
+  p{
+    margin-top: 40px;
+    font-size: 1.5em;
+  }
 }
 </style>

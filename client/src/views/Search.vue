@@ -18,6 +18,8 @@
 
       </div>
 
+      <p v-if="result">We don't find anything. Try Again</p>
+
       <div class="books-container">
         <div class="single-book-container"
              v-for="(book) in books"
@@ -84,6 +86,7 @@ export default {
 
   data() {
     return {
+      result: false,
       defC: defultCover,
       books: [],
       title: '',
@@ -96,7 +99,13 @@ export default {
   },
   methods: {
     async searchBooks() {
-      this.books = await connectWithApi.getBooks(this.title);
+      const result = await connectWithApi.getBooks(this.title);
+      if (!result.length) {
+        this.result = true;
+      } else {
+        this.result = false;
+      }
+      this.books = result;
       this.title = '';
     },
   },
@@ -141,6 +150,17 @@ input{
   color: #e7b1b1;
   padding: 6px 10px;
   text-align: center;
-  background-color: rgba(0,0,0, 40%);
+  background-color: rgba(0,0,0, .4);
 }
+
+@media (min-width: 700px){
+  h1{
+    font-size: 3em;
+  }
+  .book-cover-img{
+    height: 35%;
+  }
+
+}
+
 </style>

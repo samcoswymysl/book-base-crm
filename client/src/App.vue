@@ -1,46 +1,29 @@
 <template>
   <div id="app">
-    <video autoplay muted loop id="myVideo">
-      <source :src="`${video}`" type="video/mp4">
-    </video>
-    <Nav class="nav"/>
-
+    <background/>
+    <Nav/>
     <router-view/>
   </div>
 </template>
 <script>
-import video from './assets/video/background.mp4';
+
 import Nav from './components/Nav.vue';
+import Background from './components/Background.vue';
 
 export default {
   name: 'App',
   components: {
     Nav,
+    Background,
   },
   data() {
     return {
-      video: '',
     };
-  },
-  mounted() {
-    this.video = video;
   },
 };
 </script>
 
 <style>
-/*Video DziarskiLisek from Pixabay*/
-
-@import url('https://fonts.googleapis.com/css2?family=Arima+Madurai:wght@200;400;700&display=swap');
-
-#myVideo {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  min-width: 100%;
-  min-height: 100%;
-  z-index: -1;
-}
 
 *{
   margin: 0;
@@ -56,9 +39,5 @@ export default {
   font-family: 'Arima Madurai', sans-serif;
   text-align: center;
   color: #e7b1b1;
-  display: flex;
-}
-
-.nav{
 }
 </style>
