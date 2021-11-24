@@ -19,7 +19,7 @@ loginRouter.post('/', checkLogData, (req, res, next) => {
     });
 
     res.cookie('userName', user.name, { maxAge: 1000 * 60 * 60 });
-    return res.json('Login successful');
+    return res.json({ status: 200, massage: 'Login successful' });
   } catch (e) {
     res.json(e.message);
   }

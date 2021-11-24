@@ -2,7 +2,7 @@ import Unauthorized from './errors';
 
 export default class ConnectWithServ {
   static addUser(name, password) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       try {
         fetch('http://localhost:3000/register', {
           method: 'POST',
@@ -16,11 +16,10 @@ export default class ConnectWithServ {
 
         })
           .then((res) => res.json())
-          .then((data) => {
-            resolve(data);
-          });
+          .then((data) => resolve(data));
       } catch (e) {
-        reject(e.message);
+        console.log('bląd');
+        resolve({ status: 500, message: 'Error try later' });
       }
     });
   }
@@ -41,7 +40,7 @@ export default class ConnectWithServ {
         .then((res) => res.json())
         .then((data) => resolve(data))
         .catch(() => {
-          resolve('Error try later');
+          resolve({ status: 500, message: 'Error try later' });
         });
     });
   }
@@ -68,7 +67,7 @@ export default class ConnectWithServ {
           if (e instanceof Unauthorized) {
             resolve('You must Login');
           } else {
-            resolve('Sorry Ty Later');
+            resolve({ status: 500, message: 'Error try later' });
           }
         });
     });
@@ -96,9 +95,9 @@ export default class ConnectWithServ {
         .then((data) => resolve(data))
         .catch((e) => {
           if (e instanceof Unauthorized) {
-            resolve('You must Login');
+            resolve({ status: 500, message: 'You must Login' });
           } else {
-            resolve('Sorry Ty Later');
+            resolve({ status: 500, message: 'Error try later' });
           }
         });
     });
@@ -126,10 +125,9 @@ export default class ConnectWithServ {
         .then((data) => resolve(data))
         .catch((e) => {
           if (e instanceof Unauthorized) {
-            resolve('You must Login');
-          } else {
-            resolve('Sorry Ty Later');
+            return resolve({ status: 409, message: 'You must Login' });
           }
+          return resolve({ status: 500, message: 'Error try later' });
         });
     });
   }

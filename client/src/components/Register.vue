@@ -54,7 +54,7 @@ export default {
     },
     validForm() {
       if (this.name.length < 2) {
-        this.error = 'Your name must have 4 char';
+        this.error = 'Your name must have 2 char';
         return;
       }
       if (this.password.length <= 6) {

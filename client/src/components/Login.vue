@@ -16,7 +16,7 @@
     >
     <button @click="login">Login</button>
     </div>
-    <p v-if="loginMessage">{{loginMessage}}</p>
+    <p v-if="loginMessage.status">{{loginMessage.message}}</p>
 
   </div>
 
@@ -31,18 +31,18 @@ export default {
     return {
       name: '',
       password: '',
-      loginMessage: '',
+      loginMessage: {},
     };
   },
 
   methods: {
     async login() {
-      if (this.name.length <= 4 || this.password.length <= 6) {
-        this.loginMessage = 'You must write name and password';
+      if (this.name.length <= 2 || this.password.length <= 6) {
+        this.loginMessage.message = 'You must write name and password';
         return;
       }
       this.loginMessage = await ConnectWithServ.login(this.name, this.password);
-      if (this.loginMessage === 'Login successful') {
+      if (this.loginMessage.status === 200) {
         this.$emit('change');
       }
     },

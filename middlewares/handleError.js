@@ -1,5 +1,13 @@
 const {
-  ShortPass, ShortLogin, WrongName, WrongPass, WrongMongoId, WrongISBN, EmptyDoc, NoFindBook,EmptyValue,
+  ShortPass,
+  ShortLogin,
+  WrongName,
+  WrongPass,
+  WrongMongoId,
+  WrongISBN,
+  EmptyDoc,
+  NoFindBook,
+  EmptyValue,
 } = require('../config/errors');
 
 function handleError(err, req, res, next) {
@@ -47,8 +55,9 @@ function handleError(err, req, res, next) {
     answer.message = 'You mast refill all fields';
     answer.status = 404;
   }
-
-  console.log(err);
+  res.status(answer.status);
+  console.log(answer.message);
+  res.json(answer);
 }
 
 module.exports = {

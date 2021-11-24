@@ -3,13 +3,8 @@
     class="addToFavWrapper"
     >
     <p
-      v-if="error"
-    >{{error}}</p>
-    <p
-      v-if="servResponse"
-    >
-      {{servResponse}}
-    </p>
+      v-if="servResponse.status"
+    >{{servResponse.massage}}</p>
     <button
       class="addToFav"
       @click="sendFavBook"
@@ -31,7 +26,6 @@ export default {
 
   data() {
     return {
-      error: '',
       token: this.$cookies.get('auth'),
       servResponse: '',
       infoBook: {
@@ -49,7 +43,10 @@ export default {
         this.error = 'You must login if you want add books to your favorite';
         return;
       }
-      this.servResponse = await ConnectWithServ.addToFav(this.token, this.infoBook);
+      this.servResponse = await ConnectWithServ.addToFav(this.$cookies.get('auth'), this.infoBook);
+      if (this.servResponse.status) {
+        this.$router.go();
+      }
     },
 
   },

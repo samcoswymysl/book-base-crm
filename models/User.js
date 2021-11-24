@@ -15,6 +15,9 @@ const UserSchema = new mongoose.Schema({
   favBooks: {
     type: Array,
   },
+  admin: {
+    default: false,
+  },
 });
 
 module.exports = mongoose.model('User', UserSchema);

@@ -9,6 +9,7 @@ favBooksRouter
   .get('/', logController, async (req, res, next) => {
     const { id } = req.user;
 
+
     try {
       if (!id.match(/^[0-9a-fA-F]{24}$/)) {
         throw new WrongMongoId();

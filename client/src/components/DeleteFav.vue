@@ -1,6 +1,6 @@
 <template>
   <div class="deleteFavWrapper">
-    <p v-if="error">{{error}}</p>
+    <p v-if="deleteInfo.status">{{deleteInfo.massage}}</p>
     <button @click="deleteFav">Delete on fav</button>
   </div>
 
@@ -16,14 +16,16 @@ export default {
   },
   data() {
     return {
-      error: '',
-      deleteInfo: '',
+      deleteInfo: {},
       token: this.$cookies.get('auth'),
     };
   },
   methods: {
     async deleteFav() {
-      this.deleteInfo = await ConnectWithServ.deleteOnFav(this.token, this.book);
+      this.deleteInfo = await ConnectWithServ.deleteOnFav(this.$cookies.get('auth'), this.book);
+      if (this.deleteInfo.status) {
+        this.$router.go();
+      }
       this.$emit('refresh');
     },
   },
