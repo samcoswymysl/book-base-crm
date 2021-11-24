@@ -7,7 +7,7 @@ const {
   WrongISBN,
   EmptyDoc,
   NoFindBook,
-  EmptyValue, AdminAuth,
+  EmptyValue, AdminAuth, DelleteEr,
 } = require('../config/errors');
 
 function handleError(err, req, res, next) {
@@ -54,8 +54,13 @@ function handleError(err, req, res, next) {
   if (err instanceof EmptyValue) {
     answer.message = 'You mast refill all fields';
     answer.status = 404;
-  } if (err instanceof AdminAuth) {
+  }
+  if (err instanceof AdminAuth) {
     answer.message = 'You are not Admin';
+    answer.status = 401;
+  }
+  if (err instanceof DelleteEr) {
+    answer.message = 'You can\'t delete this user';
     answer.status = 401;
   }
   res.status(answer.status);

@@ -34,7 +34,7 @@ favBooksRouter
         },
       });
 
-      res.json({massage: `${book.title} add to your favorite books`});
+      res.json(`${book.title} add to your favorite books`);
     } catch (er) {
       next(er);
     }

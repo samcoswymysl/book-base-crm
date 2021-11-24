@@ -7,7 +7,6 @@
     <router-link to="/favorite" ref="fav" >Your Books</router-link>
     <router-link to="/admin"
                  v-if="this.$cookies.get('auth') !== null"
-                 @click="checkAdmin"
     >Admin</router-link>
 
 <!--    link do logowania-->

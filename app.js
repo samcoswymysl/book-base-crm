@@ -13,6 +13,7 @@ const { favBooksRouter } = require('./routes/favBooks');
 const { passport } = require('./config/passport');
 const { logoutRouter } = require('./routes/logout');
 const { adminRouter } = require('./routes/admin');
+const { userRouter } = require('./routes/users');
 
 const { handleError } = require('./middlewares/handleError');
 const logController = require('./middlewares/auth');
@@ -39,6 +40,7 @@ app.use('/login', checkLogData, loginRouter);
 app.use('/fav', logController, favBooksRouter);
 app.use('/logout', logoutRouter);
 app.use('/admin', checkAdmin, adminRouter);
+app.use('/users', checkAdmin, userRouter);
 
 // Errors
 app.use(handleError);

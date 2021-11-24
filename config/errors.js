@@ -18,6 +18,7 @@ class NoFindBook extends Error {}
 
 // panel admien
 class AdminAuth extends Error {}
+class DelleteEr extends Error {}
 
 module.exports = {
   WrongName,
@@ -31,4 +32,5 @@ module.exports = {
   NoFindBook,
   EmptyValue,
   AdminAuth,
+  DelleteEr,
 };

@@ -49,7 +49,6 @@ async function adminCheck(payload, done) {
   try {
     const user = await User.findOne(({ _id: payload.id }));
     if (user.admin === true) {
-      console.log(user);
       done(null, user);
     } else {
       throw new AdminAuth();

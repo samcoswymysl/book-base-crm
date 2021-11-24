@@ -1,53 +1,9 @@
 import Unauthorized from './errors';
 
-export default class ConnectWithServ {
-  static addUser(name, password) {
-    return new Promise((resolve) => {
-      try {
-        fetch('http://localhost:3000/register', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            name,
-            password,
-          }),
-
-        })
-          .then((res) => res.json())
-          .then((data) => resolve(data));
-      } catch (e) {
-        console.log('bląd');
-        resolve({ status: 500, message: 'Error try later' });
-      }
-    });
-  }
-
-  static login(name, password) {
-    return new Promise((resolve) => {
-      fetch('http://localhost:3000/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name,
-          password,
-        }),
-        credentials: 'include',
-      })
-        .then((res) => res.json())
-        .then((data) => resolve(data))
-        .catch(() => {
-          resolve({ status: 500, message: 'Error try later' });
-        });
-    });
-  }
-
-  static getFavorite(token) {
-    return new Promise((resolve) => {
-      fetch('http://localhost:3000/fav', {
+export default class AdminUtils {
+  static openAdminPanel(token) {
+    return new Promise((resolve, reject) => {
+      fetch('http://localhost:3000/admin', {
         method: 'GET',
         headers: {
           Authorization: token,
@@ -56,32 +12,53 @@ export default class ConnectWithServ {
         .then((res) => {
           if (res.status !== 200) {
             if (res.status === 401) {
-              throw new Unauthorized();
+              return reject(new Unauthorized('You are not Admin'));
             }
-            throw new Error();
+            return reject(new Error());
           }
           return res.json();
         })
         .then((data) => resolve(data))
         .catch((e) => {
-          if (e instanceof Unauthorized) {
-            resolve('You must Login');
-          } else {
-            resolve({ status: 500, message: 'Error try later' });
-          }
+          console.log(e);
         });
     });
   }
 
-  static addToFav(token, bookInfo) {
+  static showUserList(token) {
+    return new Promise((resolve, reject) => {
+      fetch('http://localhost:3000/users', {
+        method: 'GET',
+        headers: {
+          Authorization: token,
+        },
+      })
+        .then((res) => {
+          console.log(res);
+          if (res.status !== 200) {
+            if (res.status === 401) {
+              return reject(new Unauthorized('You are not Admin'));
+            }
+            return reject(new Error());
+          }
+          return res.json();
+        })
+        .then((data) => resolve(data))
+        .catch((e) => {
+          console.log(e);
+        });
+    });
+  }
+
+  static changeAdminStatus(token, user) {
     return new Promise((resolve) => {
-      fetch('http://localhost:3000/fav', {
+      fetch('http://localhost:3000/users/', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
           Authorization: token,
         },
-        body: JSON.stringify({ book: bookInfo }),
+        body: JSON.stringify({ user }),
       })
         .then((res) => {
           if (res.status !== 200) {
@@ -103,15 +80,15 @@ export default class ConnectWithServ {
     });
   }
 
-  static deleteOnFav(token, bookInfo) {
+  static resetPasword(token, user) {
     return new Promise((resolve) => {
-      fetch('http://localhost:3000/fav', {
-        method: 'DELETE',
+      fetch('http://localhost:3000/users/', {
+        method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
           Authorization: token,
         },
-        body: JSON.stringify({ book: bookInfo }),
+        body: JSON.stringify({ user }),
       })
         .then((res) => {
           if (res.status !== 200) {
@@ -125,22 +102,40 @@ export default class ConnectWithServ {
         .then((data) => resolve(data))
         .catch((e) => {
           if (e instanceof Unauthorized) {
-            return resolve({ status: 409, message: 'You must Login' });
+            resolve({ status: 500, message: 'You must Login' });
+          } else {
+            resolve({ status: 500, message: 'Error try later' });
           }
-          return resolve({ status: 500, message: 'Error try later' });
         });
     });
   }
 
-  static logout() {
+  static deleteUser(token, user) {
     return new Promise((resolve) => {
-      fetch('http://localhost:3000/logout', {
-        credentials: 'include',
+      fetch('http://localhost:3000/users/', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token,
+        },
+        body: JSON.stringify({ user }),
       })
-        .then((res) => res.json())
-        .then((res) => resolve(res))
-        .catch(() => {
-          resolve('Error try later');
+        .then((res) => {
+          if (res.status !== 200) {
+            if (res.status === 401) {
+              throw new Unauthorized();
+            }
+            throw new Error();
+          }
+          return res.json();
+        })
+        .then((data) => resolve(data))
+        .catch((e) => {
+          if (e instanceof Unauthorized) {
+            resolve({ status: 500, message: 'You must Login' });
+          } else {
+            resolve({ status: 500, message: 'Error try later' });
+          }
         });
     });
   }
