@@ -3,29 +3,26 @@ const LocalStrategy = require('passport-local').Strategy;
 const passportJWT = require('passport-jwt');
 const { compare } = require('bcrypt');
 const User = require('../models/User');
+const { WrongName, WrongPass } = require('./errors');
 
-passport.use(
+passport.use('local',
   new LocalStrategy({ usernameField: 'name', session: false }, async (name, password, done) => {
     try {
       const userFind = await User.findOne({ name });
       if (userFind === null) {
-        return done(null, false, { message: `User ${name} doesn't exist` });
+        throw new WrongName();
       }
-      await compare(password, userFind.password, (err, isMatch) => {
-        if (err) {
-          throw err;
-        }
+      const match = await compare(password, userFind.password);
 
-        if (isMatch) {
-          return done(null, userFind);
-        }
-        return done(null, false, { message: 'Incorrect password' });
-      });
-    } catch (e) {
-      return done(null, false, e.message);
+      if (!match) {
+        throw new WrongPass();
+      } else {
+        return done(null, userFind);
+      }
+    } catch (er) {
+      done(er);
     }
-  }),
-);
+  }));
 
 const JWTStrategy = passportJWT.Strategy;
 const ExtractJWT = passportJWT.ExtractJwt;
@@ -34,10 +31,18 @@ const config = {
   secretOrKey: process.env.JWT_SECRET,
 };
 
-function verifyCallback(payload, done) {
-  return User.findOne({ _id: payload.id })
-    .then((user) => done(null, user)).catch((err) => done(err));
+async function verifyCallback(payload, done) {
+  try {
+    const user = await User.findOne(({ _id: payload.id }));
+    done(null, user);
+  } catch (er) {
+    done(er);
+  }
 }
+// No testing it work wersion TODO test and delete
+// return User.findOne({ _id: payload.id })
+//   .then((user) => done(null, user)).catch((err) => done(err));
+
 passport.use(new JWTStrategy(config, verifyCallback));
 
 module.exports = {

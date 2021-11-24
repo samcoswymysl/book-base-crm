@@ -53,7 +53,7 @@ export default {
       this.serverAnswer = await ConnectWithServ.addUser(this.name, this.password);
     },
     validForm() {
-      if (this.name.length <= 4) {
+      if (this.name.length < 2) {
         this.error = 'Your name must have 4 char';
         return;
       }
