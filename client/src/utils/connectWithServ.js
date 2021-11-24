@@ -144,4 +144,32 @@ export default class ConnectWithServ {
         });
     });
   }
+
+  static openAdminPanel(token) {
+    return new Promise((resolve) => {
+      fetch('http://localhost:3000/admin', {
+        method: 'GET',
+        headers: {
+          Authorization: token,
+        },
+      })
+        .then((res) => {
+          if (res.status !== 200) {
+            if (res.status === 401) {
+              throw new Unauthorized();
+            }
+            throw new Error();
+          }
+          return res.json();
+        })
+        .then((data) => resolve(data))
+        .catch((e) => {
+          if (e instanceof Unauthorized) {
+            resolve({ status: 401, massage: 'You are not admin' });
+          } else {
+            resolve({ status: 500, message: 'Error try later' });
+          }
+        });
+    });
+  }
 }

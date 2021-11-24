@@ -3,7 +3,7 @@
     class="addToFavWrapper"
     >
     <p
-      v-if="servResponse.status"
+      v-if="servResponse.massage"
     >{{servResponse.massage}}</p>
     <button
       class="addToFav"

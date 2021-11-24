@@ -1,14 +1,12 @@
 const express = require('express');
 
-const logController = require('../middlewares/auth');
 const User = require('../models/User'); const { WrongMongoId } = require('../config/errors');
 
 const favBooksRouter = express.Router();
 
 favBooksRouter
-  .get('/', logController, async (req, res, next) => {
+  .get('/', async (req, res, next) => {
     const { id } = req.user;
-
 
     try {
       if (!id.match(/^[0-9a-fA-F]{24}$/)) {
@@ -21,7 +19,7 @@ favBooksRouter
       next(er);
     }
   })
-  .put('/', logController, async (req, res, next) => {
+  .put('/', async (req, res, next) => {
     const { id } = req.user;
     const { book } = req.body;
 
@@ -36,12 +34,12 @@ favBooksRouter
         },
       });
 
-      res.json(`${book.title} add to your favorite books`);
+      res.json({massage: `${book.title} add to your favorite books`});
     } catch (er) {
       next(er);
     }
   })
-  .delete('/', logController, async (req, res, next) => {
+  .delete('/', async (req, res, next) => {
     const { id } = req.user;
     const { book } = req.body;
 

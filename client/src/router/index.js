@@ -3,7 +3,8 @@ import VueRouter from 'vue-router';
 import Search from '../views/Search.vue';
 import Home from '../views/Home.vue';
 import FavBooks from '../views/FavBooks.vue';
-import About from '../views/About.vue';
+import About from '../views/About.vue'; import
+Admin from '../views/Admin.vue';
 
 Vue.use(VueRouter);
 
@@ -27,9 +28,15 @@ const routes = [
   },
 
   {
-    path: '/About',
+    path: '/about',
     name: 'About',
     component: About,
+  },
+
+  {
+    path: '/admin',
+    name: 'Admin',
+    component: Admin,
   },
 
 ];

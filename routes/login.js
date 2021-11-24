@@ -4,7 +4,7 @@ const checkLogData = require('../middlewares/checkUserLogin');
 
 const loginRouter = express.Router();
 
-loginRouter.post('/', checkLogData, (req, res, next) => {
+loginRouter.post('/',(req, res, next) => {
   const { user } = req;
   try {
     // TODO add time how you can use the token

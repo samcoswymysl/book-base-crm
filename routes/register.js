@@ -19,6 +19,7 @@ registerRouter.post('/', async (req, res, next) => {
     const user = new User({
       name: name.toLowerCase(),
       password: hashPassword,
+      admin: false,
     });
 
     await user.save();

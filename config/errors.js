@@ -13,8 +13,11 @@ class WrongMongoId extends Error {}
 // Book DB
 class WrongISBN extends Error {}
 class EmptyDoc extends Error {}
-class EmptyValue extends Error{}
+class EmptyValue extends Error {}
 class NoFindBook extends Error {}
+
+// panel admien
+class AdminAuth extends Error {}
 
 module.exports = {
   WrongName,
@@ -27,4 +30,5 @@ module.exports = {
   EmptyDoc,
   NoFindBook,
   EmptyValue,
+  AdminAuth,
 };

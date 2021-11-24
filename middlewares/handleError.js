@@ -7,7 +7,7 @@ const {
   WrongISBN,
   EmptyDoc,
   NoFindBook,
-  EmptyValue,
+  EmptyValue, AdminAuth,
 } = require('../config/errors');
 
 function handleError(err, req, res, next) {
@@ -54,6 +54,9 @@ function handleError(err, req, res, next) {
   if (err instanceof EmptyValue) {
     answer.message = 'You mast refill all fields';
     answer.status = 404;
+  } if (err instanceof AdminAuth) {
+    answer.message = 'You are not Admin';
+    answer.status = 401;
   }
   res.status(answer.status);
   console.log(answer.message);

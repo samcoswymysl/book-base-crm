@@ -3,7 +3,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const passportJWT = require('passport-jwt');
 const { compare } = require('bcrypt');
 const User = require('../models/User');
-const { WrongName, WrongPass } = require('./errors');
+const { WrongName, WrongPass, AdminAuth } = require('./errors');
 
 passport.use('local',
   new LocalStrategy({ usernameField: 'name', session: false }, async (name, password, done) => {
@@ -43,7 +43,22 @@ async function verifyCallback(payload, done) {
 // return User.findOne({ _id: payload.id })
 //   .then((user) => done(null, user)).catch((err) => done(err));
 
-passport.use(new JWTStrategy(config, verifyCallback));
+passport.use('jwt', new JWTStrategy(config, verifyCallback));
+
+async function adminCheck(payload, done) {
+  try {
+    const user = await User.findOne(({ _id: payload.id }));
+    if (user.admin === true) {
+      console.log(user);
+      done(null, user);
+    } else {
+      throw new AdminAuth();
+    }
+  } catch (er) {
+    done(er);
+  }
+}
+passport.use('admin', new JWTStrategy(config, adminCheck));
 
 module.exports = {
   passport,
