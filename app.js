@@ -34,7 +34,7 @@ app.use(cors({
 }));
 app.use(bodyParser.json());
 
-app.use('/books', booksRouter);
+app.use('/books', logController, booksRouter);
 app.use('/register', registerRouter);
 app.use('/login', checkLogData, loginRouter);
 app.use('/fav', logController, favBooksRouter);

@@ -2,8 +2,8 @@
   <div class="adminNavWrapper">
     <ul>
       <li class="users" @click="users">Users</li>
-      <li class="ourBook">Our books</li>
-      <li class="addNewBook">Add new book</li>
+      <li class="ourBook" @click="ourBooks">Our books</li>
+      <li class="addNewBook" @click="addNew">Add new book</li>
     </ul>
 
   </div>
@@ -16,6 +16,13 @@ export default {
   methods: {
     users() {
       this.$emit('showUsers');
+    },
+
+    ourBooks() {
+      this.$emit('showOurBooks');
+    },
+    addNew() {
+      this.$emit('addBook');
     },
   },
 

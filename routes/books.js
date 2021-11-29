@@ -1,8 +1,10 @@
 const express = require('express');
-const Book = require('../models/Book'); const
-  {
-    WrongISBN, EmptyDoc, WrongMongoId, EmptyValue,
-  } = require('../config/errors');
+const Book = require('../models/Book');
+const {
+  WrongISBN, EmptyDoc, WrongMongoId, EmptyValue,
+} = require('../config/errors');
+
+const checkAdmin = require('../middlewares/accesAdminPanel'); const { loginRouter } = require('./login');
 
 const booksRouter = express.Router();
 
@@ -13,15 +15,7 @@ booksRouter
   .get('/', async (req, res, next) => {
     try {
       const books = await Book.find();
-      const books2 = await books.map((el) => ({
-        id: el._id.toHexString(),
-        title: el.title,
-        isbn: el.isbn,
-      }));
-
-      res.render('home', {
-        books2,
-      });
+      res.json(books);
     } catch (er) {
       next(er);
     }
@@ -32,23 +26,6 @@ booksRouter
   .get('/title/:title?', async (req, res) => {
     try {
       const book = await Book.find({ title: req.params.title.toLowerCase() });
-      res.json(book);
-    } catch (er) {
-      next(er);
-    }
-  })
-
-// find All use ISBN number
-
-  .get('/isbn/:isbn?', async (req, res, next) => {
-    try {
-      const { isbn } = req.params;
-      const isbnNum = Number(isbn);
-      if (isNaN(isbnNum)) {
-        throw new WrongISBN();
-      }
-
-      const book = await Book.find({ isbn: isbnNum });
       res.json(book);
     } catch (er) {
       next(er);
@@ -71,33 +48,42 @@ booksRouter
     }
   })
 
+// Only for admin
 // Add one book to db
 
-  .post('/', async (req, res, next) => {
-    const { title, isbn } = req.body;
-    const book = new Book({
-      title: title.toLowerCase(),
-      isbn,
+  .post('/', checkAdmin, async (req, res, next) => {
+    const {
+      title, authors, coverSrc, bookEditionKey, isbn_10, isbn_13, description,
+    } = req.body.book;
+
+    const newBook = new Book({
+      title,
+      authors,
+      coverSrc,
+      isbn_10,
+      isbn_13,
+      description,
+      bookEditionKey,
+
     });
 
     try {
-      const savedBook = await book.save();
-      res.json(savedBook);
+      const savedBook = await newBook.save();
+      res.json('Book Added');
     } catch (er) {
       next(er);
     }
   })
 
-  .delete('/:id', async (req, res, next) => {
-    const { id } = req.params;
-
+  .delete('/', checkAdmin, async (req, res, next) => {
+    const { _id } = req.body.book;
     try {
       // check format id
-      if (!id.match(/^[0-9a-fA-F]{24}$/)) {
+      if (!_id.match(/^[0-9a-fA-F]{24}$/)) {
         throw new WrongMongoId();
       }
 
-      const book = await Book.deleteOne({ _id: id });
+      const book = await Book.deleteOne({ _id });
 
       // if delete count === 0 in any r4ecorrds by this id
       if (book.deletedCount === 0) {
@@ -109,7 +95,7 @@ booksRouter
       next(er);
     }
   })
-  .patch('/:id?', async (req, res, next) => {
+  .patch('/:id?', checkAdmin, async (req, res, next) => {
     const { id } = req.params;
     const { title, isbn } = req.body;
 
@@ -129,7 +115,7 @@ booksRouter
         },
       });
       if (!book.matchedCount) {
-        throw new EmptyDoc()
+        throw new EmptyDoc();
       }
 
       res.json(book);

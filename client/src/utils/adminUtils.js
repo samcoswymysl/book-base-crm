@@ -139,4 +139,92 @@ export default class AdminUtils {
         });
     });
   }
+
+  static getOurBooksFromServ(token) {
+    return new Promise((resolve) => {
+      fetch('http://localhost:3000/books', {
+        method: 'GET',
+        headers: {
+          Authorization: token,
+        },
+      })
+        .then((res) => {
+          if (res.status !== 200) {
+            if (res.status === 401) {
+              throw new Unauthorized();
+            }
+            throw new Error();
+          }
+          return res.json();
+        })
+        .then((data) => resolve(data))
+        .catch((e) => {
+          if (e instanceof Unauthorized) {
+            resolve('You must Login');
+          } else {
+            resolve({ status: 500, message: 'Error try later' });
+          }
+        });
+    });
+  }
+
+  static deleteBook(token, book) {
+    return new Promise((resolve) => {
+      fetch('http://localhost:3000/books/', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token,
+        },
+        body: JSON.stringify({ book }),
+      })
+        .then((res) => {
+          if (res.status !== 200) {
+            if (res.status === 401) {
+              throw new Unauthorized();
+            }
+            throw new Error();
+          }
+          return res.json();
+        })
+        .then((data) => resolve(data))
+        .catch((e) => {
+          if (e instanceof Unauthorized) {
+            resolve({ status: 500, message: 'You must Login' });
+          } else {
+            resolve({ status: 500, message: 'Error try later' });
+          }
+        });
+    });
+  }
+
+  static addBook(token, book) {
+    return new Promise((resolve) => {
+      fetch('http://localhost:3000/books/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token,
+        },
+        body: JSON.stringify({ book }),
+      })
+        .then((res) => {
+          if (res.status !== 200) {
+            if (res.status === 401) {
+              throw new Unauthorized();
+            }
+            throw new Error();
+          }
+          return res.json();
+        })
+        .then((data) => resolve(data))
+        .catch((e) => {
+          if (e instanceof Unauthorized) {
+            resolve({ status: 409, message: 'You must Login' });
+          } else {
+            resolve({ status: 500, message: 'Error try later' });
+          }
+        });
+    });
+  }
 }
