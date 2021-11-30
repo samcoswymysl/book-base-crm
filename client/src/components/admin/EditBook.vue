@@ -1,5 +1,10 @@
 <template>
-  <div class="addNewBookWrapper">
+
+  <div class="editBookWrapper">
+    <div
+      class="edit"
+      v-if="edit"
+    >
     <p v-if="error">{{error}}</p>
 
     <label for="title">Book title</label>
@@ -70,38 +75,48 @@
     >Description</textarea>
 
     <button
-      @click="addNewBook"
+      @click="save"
     >Submit</button>
+    </div>
+
+    <button
+      @click="editBook"
+    >Edit</button>
 
   </div>
-
 </template>
 
 <script>
 import AdminUtils from '../../utils/adminUtils';
 
 export default {
-  name: 'AddNewBook',
+  name: 'EditBook',
+  props: {
+    book: Object,
+  },
   data() {
     return {
-      title: '',
-      author1: '',
-      author2: '',
-      author3: '',
-      isbn_10: '',
-      isbn_13: '',
-      description: '',
-      coverSrc: '',
-      bookEditionKey: '',
-      authors: [],
+      edit: false,
       error: '',
+      title: this.book.title,
+      author1: this.book.authors[0],
+      author2: this.book.authors[1],
+      author3: this.book.authors[2],
+      isbn_10: this.book.isbn_10,
+      isbn_13: this.book.isbn_13,
+      description: this.book.description,
+      coverSrc: this.book.coverSrc,
+      bookEditionKey: this.book.edition_key,
+      authors: [],
+      correctedBook: {},
       checkData: false,
-      newBook: {},
       serverResponse: '',
-
     };
   },
   methods: {
+    editBook() {
+      this.edit = !this.edit;
+    },
     checkRequiredData() {
       if (this.title.length <= 2) {
         this.error = 'Book title is to short should have 4 letter';
@@ -122,7 +137,7 @@ export default {
       return true;
     },
 
-    async addNewBook() {
+    async save() {
       this.checkData = this.checkRequiredData();
       if (!this.checkData) {
         this.error = 'Check Book Data';
@@ -136,7 +151,7 @@ export default {
         this.authors.push(this.author3);
       }
 
-      this.newBook = {
+      this.correctedBook = {
         title: this.title,
         authors: this.authors,
         isbn_10: this.isbn_10,
@@ -144,30 +159,24 @@ export default {
         description: this.description,
         coverSrc: this.coverSrc,
         bookEditionKey: this.bookEditionKey,
+        // eslint-disable-next-line no-underscore-dangle
+        _id: this.book._id,
       };
 
-      this.serverResponse = await AdminUtils.addBook(this.$cookies.get('auth'), this.newBook);
+      this.serverResponse = await AdminUtils.correctBook(this.$cookies.get('auth'), this.correctedBook);
 
       if (this.serverResponse) {
-        this.title = '';
-        this.authors = [];
-        this.isbn_10 = '';
-        this.isbn_13 = '';
-        this.description = '';
-        this.coverSrc = '';
-        this.bookEditionKey = '';
-        this.author1 = '';
-        this.author2 = '';
-        this.author3 = '';
+        this.edit = false;
       }
     },
+
   },
 
 };
+
 </script>
 
 <style scoped>
-
 label {
   display: block;
 }

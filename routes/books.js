@@ -56,18 +56,18 @@ booksRouter
       title, authors, coverSrc, bookEditionKey, isbn_10, isbn_13, description,
     } = req.body.book;
 
-    const newBook = new Book({
-      title,
-      authors,
-      coverSrc,
-      isbn_10,
-      isbn_13,
-      description,
-      bookEditionKey,
-
-    });
-
     try {
+      const newBook = new Book({
+        title,
+        authors,
+        coverSrc,
+        isbn_10,
+        isbn_13,
+        description,
+        bookEditionKey,
+
+      });
+
       const savedBook = await newBook.save();
       res.json('Book Added');
     } catch (er) {
@@ -95,23 +95,30 @@ booksRouter
       next(er);
     }
   })
-  .patch('/:id?', checkAdmin, async (req, res, next) => {
+  .patch('/', checkAdmin, async (req, res, next) => {
     const { id } = req.params;
-    const { title, isbn } = req.body;
+    const {
+      _id, title, authors, coverSrc, bookEditionKey, isbn_10, isbn_13, description,
+    } = req.body.book;
 
     try {
       // check format id
-      if (!id.match(/^[0-9a-fA-F]{24}$/)) {
+      if (!_id.match(/^[0-9a-fA-F]{24}$/)) {
         throw new WrongMongoId();
       }
-      if (!title || !isbn) {
+      if (!title || !isbn_10) {
         throw new EmptyValue();
       }
 
-      const book = await Book.updateOne({ _id: id }, {
+      const book = await Book.updateOne({ _id }, {
         $set: {
-          title: title.toLowerCase(),
-          isbn,
+          title,
+          authors,
+          coverSrc,
+          isbn_10,
+          isbn_13,
+          description,
+          bookEditionKey,
         },
       });
       if (!book.matchedCount) {

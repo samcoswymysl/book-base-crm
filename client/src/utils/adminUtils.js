@@ -227,4 +227,34 @@ export default class AdminUtils {
         });
     });
   }
+
+  static correctBook(token, book) {
+    return new Promise((resolve) => {
+      fetch('http://localhost:3000/books/', {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token,
+        },
+        body: JSON.stringify({ book }),
+      })
+        .then((res) => {
+          if (res.status !== 200) {
+            if (res.status === 401) {
+              throw new Unauthorized();
+            }
+            throw new Error();
+          }
+          return res.json();
+        })
+        .then((data) => resolve(data))
+        .catch((e) => {
+          if (e instanceof Unauthorized) {
+            resolve({ status: 409, message: 'You must Login' });
+          } else {
+            resolve({ status: 500, message: 'Error try later' });
+          }
+        });
+    });
+  }
 }

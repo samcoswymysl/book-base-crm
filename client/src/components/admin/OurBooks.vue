@@ -12,11 +12,12 @@
         <p>{{book.title}}</p>
         <p>{{book.isbn}}</p>
 
-        <button>Edit</button>
+        <EditBook
+          :book="book"
+        />
         <button
           @click="deleteBook(book)"
         >Delete</button>
-
       </div>
 
     </div>
@@ -27,11 +28,20 @@
 
 <script>
 import AdminUtils from '../../utils/adminUtils';
+import EditBook from './EditBook.vue';
 
 export default {
   name: 'OurBooks',
+  components: {
+    EditBook,
+  },
   props: {
     ourBooks: Array,
+  },
+  data() {
+    return {
+
+    };
   },
   methods: {
     async deleteBook(book) {
