@@ -101,4 +101,35 @@ export default {
 
 <style scoped>
 
+.usersWrapper{
+  display: flex;
+  max-width: 65vw;
+  flex-direction: column;
+  margin: 7vh 2vw 0 3vw
+}
+
+table{
+  width: 60vw;
+}
+table * {
+  font-weight: bold;
+  border-bottom: 1px solid #e7b1b1;
+  padding: 1%;
+}
+button{
+  display: inline-block;
+  margin: 10px;
+  padding: 5px 15px;
+  border-radius: 10px;
+  background-color: rgba(0,0,0, .4);
+  border: 1px solid #e7b1b1;
+  color: #e7b1b1;
+  font-weight: normal;
+}
+
+button:hover{
+  box-shadow:  0 0 6px 1px #e7b1b1;
+  color: #eb1fb5;
+}
+
 </style>

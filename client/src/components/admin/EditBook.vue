@@ -77,6 +77,10 @@
     <button
       @click="save"
     >Submit</button>
+
+      <button
+      @click="close"
+    >Close</button>
     </div>
 
     <button
@@ -106,7 +110,7 @@ export default {
       isbn_13: this.book.isbn_13,
       description: this.book.description,
       coverSrc: this.book.coverSrc,
-      bookEditionKey: this.book.edition_key,
+      bookEditionKey: this.book.bookEditionKey,
       authors: [],
       correctedBook: {},
       checkData: false,
@@ -114,6 +118,11 @@ export default {
     };
   },
   methods: {
+
+    close() {
+      this.edit = false;
+    },
+
     editBook() {
       this.edit = !this.edit;
     },
@@ -167,6 +176,7 @@ export default {
 
       if (this.serverResponse) {
         this.edit = false;
+        this.$emit('refreshCorrectBook');
       }
     },
 
@@ -180,10 +190,80 @@ export default {
 label {
   display: block;
 }
+input{
+  width: 45vw;
+  border-radius: 15px;
+  border: 1px solid #e7b1b1;
+  color: #e7b1b1;
+  padding: 6px 10px;
+  text-align: center;
+  background-color: rgba(0, 0, 0, .4);
+}
 
 textarea{
+  width: 45vw;
   display: block;
-  margin: 10px auto;
+  margin: 20px auto;
+  border-radius: 15px;
+  border: 1px solid #e7b1b1;
+  color: #e7b1b1;
+  padding: 6px 10px;
+  text-align: center;
+  background-color: rgba(0,0,0, .4);
+
+}
+
+button{
+  display: inline-block;
+  margin: 10px;
+  padding: 5px 15px;
+  border-radius: 10px;
+  background-color: rgba(0,0,0, .4);
+  border: 1px solid #e7b1b1;
+  color: #e7b1b1;
+  font-weight: normal;
+}
+
+button:hover{
+  box-shadow:  0 0 6px 1px #e7b1b1;
+  color: #eb1fb5;
+}
+
+.edit{
+  padding: 4vh;
+  position: fixed;
+  font-size: 2.7vh;
+  top: 13vh;
+  left: 5vw;
+  width: 60vw;
+  height: 80vh;
+  overflow: scroll;
+  z-index: 5;
+  background-color:rgba(0, 0, 0, .7);
+  box-shadow:  0 0 6px 1px #e7b1b1;
+}
+
+.edit:hover{
+  box-shadow:  0 0 8px 3px #e7b1b1;
+
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  border-left: 1px solid #000;
+}
+::-webkit-scrollbar-thumb {
+  background: #0e446c;
+  -webkit-box-shadow: inset 0 0 10px #0e446c;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #0e446c;
+  -webkit-box-shadow: inset 0 0 6px #0e446c;
+}
+::-webkit-scrollbar-thumb:window-inactive {
+  background: #0e446c;
 }
 
 </style>

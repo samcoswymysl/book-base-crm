@@ -171,10 +171,42 @@ export default {
 label {
   display: block;
 }
-
-textarea{
-  display: block;
-  margin: 10px auto;
+input{
+  width: 45vw;
+  border-radius: 15px;
+  border: 1px solid #e7b1b1;
+  color: #e7b1b1;
+  padding: 6px 10px;
+  text-align: center;
+  background-color: rgba(0, 0, 0, .4);
 }
 
+textarea{
+  width: 45vw;
+  display: block;
+  margin: 20px auto;
+  border-radius: 15px;
+  border: 1px solid #e7b1b1;
+  color: #e7b1b1;
+  padding: 6px 10px;
+  text-align: center;
+  background-color: rgba(0,0,0, .4);
+
+}
+
+button{
+  display: inline-block;
+  margin: 10px;
+  padding: 5px 15px;
+  border-radius: 10px;
+  background-color: rgba(0,0,0, .4);
+  border: 1px solid #e7b1b1;
+  color: #e7b1b1;
+  font-weight: normal;
+}
+
+button:hover{
+  box-shadow:  0 0 6px 1px #e7b1b1;
+  color: #eb1fb5;
+}
 </style>

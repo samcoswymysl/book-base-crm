@@ -19,9 +19,7 @@ export default class AdminUtils {
           return res.json();
         })
         .then((data) => resolve(data))
-        .catch((e) => {
-          console.log(e);
-        });
+        .catch((e) => reject(e));
     });
   }
 
@@ -34,7 +32,6 @@ export default class AdminUtils {
         },
       })
         .then((res) => {
-          console.log(res);
           if (res.status !== 200) {
             if (res.status === 401) {
               return reject(new Unauthorized('You are not Admin'));
@@ -44,9 +41,7 @@ export default class AdminUtils {
           return res.json();
         })
         .then((data) => resolve(data))
-        .catch((e) => {
-          console.log(e);
-        });
+        .catch((e) => reject(e));
     });
   }
 

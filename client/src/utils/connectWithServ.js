@@ -18,7 +18,6 @@ export default class ConnectWithServ {
           .then((res) => res.json())
           .then((data) => resolve(data));
       } catch (e) {
-        console.log('bląd');
         resolve({ status: 500, message: 'Error try later' });
       }
     });
@@ -137,6 +136,17 @@ export default class ConnectWithServ {
       fetch('http://localhost:3000/logout', {
         credentials: 'include',
       })
+        .then((res) => res.json())
+        .then((res) => resolve(res))
+        .catch(() => {
+          resolve('Error try later');
+        });
+    });
+  }
+
+  static getBooksFromServ(title) {
+    return new Promise((resolve) => {
+      fetch(`http://localhost:3000/books/title/${title}`)
         .then((res) => res.json())
         .then((res) => resolve(res))
         .catch(() => {

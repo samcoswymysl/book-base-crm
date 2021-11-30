@@ -23,25 +23,10 @@ booksRouter
 
 // find  book use title, one or more
 
-  .get('/title/:title?', async (req, res) => {
+  .get('/title/:title?', async (req, res, next) => {
+    const { title } = req.params;
     try {
-      const book = await Book.find({ title: req.params.title.toLowerCase() });
-      res.json(book);
-    } catch (er) {
-      next(er);
-    }
-  })
-
-// find one book for id
-  .get('/id/:id?', async (req, res, next) => {
-    try {
-      const { id } = req.params;
-      // if check ID
-      if (!id.match(/^[0-9a-fA-F]{24}$/)) {
-        throw new WrongMongoId();
-      }
-
-      const book = await Book.findById(id);
+      const book = await Book.find({ title: { $regex: title, $options: 'i' } });
       res.json(book);
     } catch (er) {
       next(er);

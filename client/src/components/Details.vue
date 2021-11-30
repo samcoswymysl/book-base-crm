@@ -98,7 +98,7 @@ button:hover{
   width: 60vw;
   height: 80vh;
   z-index: 5;
-  background-color:rgba(0, 0, 0, .9);
+  background-color:rgba(0, 0, 0, .7);
   box-shadow:  0 0 6px 1px #e7b1b1;
 }
 

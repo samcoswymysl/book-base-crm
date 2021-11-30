@@ -59,12 +59,10 @@ export default {
     },
     async getOurBooks() {
       this.oruBooksList = await AdminUtils.getOurBooksFromServ(this.$cookies.get('auth'));
-      console.log(this.oruBooksList);
       this.show = 'books';
     },
 
     showAddPanel() {
-      console.log('xxxx');
       this.show = 'add';
     },
 
@@ -84,7 +82,17 @@ export default {
 .adminWrapper{
   display: flex;
   flex-direction: column;
-  margin: 7vh auto 0 2.5vw;
+  margin: 7vh auto 0 0;
   width: 65vw
 }
+@media (min-width: 700px){
+  h1{
+    font-size: 3em;
+  }
+  .book-cover-img{
+    height: 35%;
+  }
+
+}
+
 </style>

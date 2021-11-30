@@ -20,7 +20,39 @@
 
       <p v-if="result">We don't find anything. Try Again</p>
 
-      <div class="books-container">
+      <div
+        class="books-container"
+        v-if="ourBooks.length"
+      >
+
+        <h2>Books in our base </h2>
+        <div class="single-book-container"
+             v-for="(ourBook) in ourBooks"
+             :item="ourBook"
+             :key="ourBook.bookEditionKey">
+          <img
+            class="book-cover-img"
+            v-if="ourBook.coverSrc"
+            :src="`${ourBook.coverSrc}`"
+            :alt="`Cover ${ourBook.title}`">
+
+          <p class="authors"
+             v-for="(authory , index) in ourBook.authors"
+             :key="index"
+          >
+            Author: {{authory}}</p>
+
+          <p>Title: {{ ourBook.title }}</p>
+
+          </div>
+
+      </div>
+
+      <div
+        class="books-container"
+        v-if="books.length"
+      >
+          <h2>Book in Openlibrary</h2>
         <div class="single-book-container"
              v-for="(book) in books"
              :item="book"
@@ -76,6 +108,7 @@ import connectWithApi from '../utils/connectWithApi';
 import AddToFav from '../components/AddToFav.vue';
 import Details from '../components/Details.vue';
 import defultCover from '../assets/img/defultCover.png';
+import ConnectWithServ from '../utils/connectWithServ';
 
 export default {
   name: 'Search',
@@ -89,6 +122,7 @@ export default {
       result: false,
       defC: defultCover,
       books: [],
+      ourBooks: [],
       title: '',
       error: '',
       errDetails: '',
@@ -100,12 +134,14 @@ export default {
   methods: {
     async searchBooks() {
       const result = await connectWithApi.getBooks(this.title);
-      if (!result.length) {
+      const ourBooks = await ConnectWithServ.getBooksFromServ(this.title);
+      if (!result.length && !ourBooks.length) {
         this.result = true;
       } else {
         this.result = false;
       }
       this.books = result;
+      this.ourBooks = ourBooks;
       this.title = '';
     },
   },
@@ -159,6 +195,9 @@ input{
   }
   .book-cover-img{
     height: 35%;
+  }
+  h2{
+    width: 100%;
   }
 
 }

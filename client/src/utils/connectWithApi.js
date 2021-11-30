@@ -1,3 +1,4 @@
+// todo correct handleeeror
 export default class ConnectApi {
   static sortAlgorytm(docs) {
     const sorted = [];
