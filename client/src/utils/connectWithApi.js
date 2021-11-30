@@ -1,4 +1,3 @@
-// todo correct handleeeror
 export default class ConnectApi {
   static sortAlgorytm(docs) {
     const sorted = [];
@@ -8,7 +7,7 @@ export default class ConnectApi {
 
   static getBooks(title) {
     return new Promise((resolve) => {
-      fetch(`http://openlibrary.org/search.json?q=${title}`)
+      fetch(`http://openlibrary.org/search.json?title=${title}`)
         .then((res) => res.json())
         .then((res) => {
           const sorted = this.sortAlgorytm(res.docs);

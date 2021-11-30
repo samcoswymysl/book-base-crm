@@ -7,9 +7,10 @@ const BookSchema = new mongoose.Schema({
   isbn_10: String,
   isbn_13: String,
   description: String,
-  bookEditionKey: {
-    type: String,
-    unique: true,
+  edition_key: Array,
+  fromBase: {
+    type: Boolean,
+    default: true,
   },
 });
 

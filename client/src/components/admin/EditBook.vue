@@ -110,11 +110,11 @@ export default {
       isbn_13: this.book.isbn_13,
       description: this.book.description,
       coverSrc: this.book.coverSrc,
-      bookEditionKey: this.book.bookEditionKey,
       authors: [],
       correctedBook: {},
       checkData: false,
       serverResponse: '',
+      bookEditionKey: this.book.edition_key[0],
     };
   },
   methods: {
@@ -167,7 +167,7 @@ export default {
         isbn_13: this.isbn_13,
         description: this.description,
         coverSrc: this.coverSrc,
-        bookEditionKey: this.bookEditionKey,
+        edition_key: [this.bookEditionKey],
         // eslint-disable-next-line no-underscore-dangle
         _id: this.book._id,
       };

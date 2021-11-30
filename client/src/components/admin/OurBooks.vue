@@ -21,9 +21,7 @@
         <p v-if="book.author3">{{book.author3}}</p>
         <p>{{book.isbn_10}}</p>
         <p v-if="book.isbn_13">{{book.isbn_13}}</p>
-        <p>{{book.bookEditionKey}}</p>
-        <p v-if="book.description">{{book.description}}</p>
-
+        <p>{{book.edition_key[0]}}</p>
         <EditBook
           :book="book"
           @refreshCorrectBook="refreshBook"
@@ -71,11 +69,11 @@ export default {
 
 <style scoped>
 
-.ourBooksWrapper {
+.ourBooksWrapper{
   display: flex;
   flex-direction: column;
-  margin: auto;
-  width: 65vw
+  margin:  7vh auto 0;
+  width: 65vw;
 }
 
 .ourBooks {

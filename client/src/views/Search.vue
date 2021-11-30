@@ -1,5 +1,4 @@
 <template>
-
   <div class="search-wrapper">
 
     <div class="search-book-container">
@@ -18,7 +17,7 @@
 
       </div>
 
-      <p v-if="result">We don't find anything. Try Again</p>
+      <p v-if="resultDB">We don't find anything. Try Again</p>
 
       <div
         class="books-container"
@@ -29,21 +28,39 @@
         <div class="single-book-container"
              v-for="(ourBook) in ourBooks"
              :item="ourBook"
-             :key="ourBook.bookEditionKey">
+             :key="ourBook.edition_key[0]">
           <img
             class="book-cover-img"
             v-if="ourBook.coverSrc"
-            :src="`${ourBook.coverSrc}`"
+            :src="ourBook.coverSrc"
             :alt="`Cover ${ourBook.title}`">
 
           <p class="authors"
-             v-for="(authory , index) in ourBook.authors"
+             v-for="(oneAuthor , index) in ourBook.authors"
              :key="index"
           >
-            Author: {{authory}}</p>
+            Author: {{oneAuthor}}</p>
 
           <p>Title: {{ ourBook.title }}</p>
 
+          <div class="bookButtons">
+            <Details
+              class="details"
+              :showAddBtn="true"
+              :src="ourBook.coverSrc"
+              :book="ourBook"
+              :authors="ourBook.authors"
+            />
+
+            <addToFav
+            v-if="isLogin !== null"
+            :src="`${ourBook.coverSrc}`"
+            :alt="`Cover ${ourBook.title}`"
+            :book="ourBook"
+            :authors="ourBook.authors"
+            :fromBase="true"
+          />
+            </div>
           </div>
 
       </div>
@@ -93,6 +110,7 @@
             :alt="`Cover ${book.title}`"
             :book="book"
             :authors="book.author_name"
+            :fromBase="false"
           />
         </div>
 
@@ -120,6 +138,7 @@ export default {
   data() {
     return {
       result: false,
+      resultDB: false,
       defC: defultCover,
       books: [],
       ourBooks: [],
@@ -133,15 +152,18 @@ export default {
   },
   methods: {
     async searchBooks() {
-      const result = await connectWithApi.getBooks(this.title);
       const ourBooks = await ConnectWithServ.getBooksFromServ(this.title);
-      if (!result.length && !ourBooks.length) {
-        this.result = true;
-      } else {
-        this.result = false;
+      if (Array.isArray(ourBooks)) {
+        this.resultDB = true;
+        this.ourBooks = ourBooks;
       }
-      this.books = result;
-      this.ourBooks = ourBooks;
+      const result = await connectWithApi.getBooks(this.title);
+      if (Array.isArray(result)) {
+        this.result = true;
+        this.books = result;
+      } else {
+        this.error = result;
+      }
       this.title = '';
     },
   },

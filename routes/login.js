@@ -1,13 +1,11 @@
 const express = require('express');
 const jtw = require('jsonwebtoken');
-const checkLogData = require('../middlewares/checkUserLogin');
 
 const loginRouter = express.Router();
 
-loginRouter.post('/',(req, res, next) => {
+loginRouter.post('/', (req, res, next) => {
   const { user } = req;
   try {
-    // TODO add time how you can use the token
 
     const token = jtw.sign({ id: user.id },
       process.env.JWT_SECRET,
@@ -15,7 +13,7 @@ loginRouter.post('/',(req, res, next) => {
 
     res.cookie('auth', ` Bearer ${token}`, {
       path: 'http://localhost:8080',
-      maxAge: 1000 * 60 * 60, // todo add maxAge cookies
+      maxAge: 1000 * 60 * 60,
     });
 
     res.cookie('userName', user.name, { maxAge: 1000 * 60 * 60 });

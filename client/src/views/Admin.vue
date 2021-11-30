@@ -8,6 +8,8 @@
       @showOurBooks="getOurBooks"
       @addBook="showAddPanel"
     />
+
+    <h2 v-if="show === ''">Welcome to the admin panel</h2>
     <Users
     v-if="show === 'users'"
     :users="usersList"
@@ -84,6 +86,9 @@ export default {
   flex-direction: column;
   margin: 7vh auto 0 0;
   width: 65vw
+}
+h2{
+  margin-top: 7vh;
 }
 @media (min-width: 700px){
   h1{

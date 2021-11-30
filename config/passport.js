@@ -39,9 +39,6 @@ async function verifyCallback(payload, done) {
     done(er);
   }
 }
-// No testing it work wersion TODO test and delete
-// return User.findOne({ _id: payload.id })
-//   .then((user) => done(null, user)).catch((err) => done(err));
 
 passport.use('jwt', new JWTStrategy(config, verifyCallback));
 

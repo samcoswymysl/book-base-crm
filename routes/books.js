@@ -38,9 +38,10 @@ booksRouter
 
   .post('/', checkAdmin, async (req, res, next) => {
     const {
-      title, authors, coverSrc, bookEditionKey, isbn_10, isbn_13, description,
+      title, authors, coverSrc, edition_key, isbn_10, isbn_13, description,
     } = req.body.book;
 
+    console.log(req.body);
     try {
       const newBook = new Book({
         title,
@@ -49,7 +50,7 @@ booksRouter
         isbn_10,
         isbn_13,
         description,
-        bookEditionKey,
+        edition_key,
 
       });
 
@@ -83,7 +84,7 @@ booksRouter
   .patch('/', checkAdmin, async (req, res, next) => {
     const { id } = req.params;
     const {
-      _id, title, authors, coverSrc, bookEditionKey, isbn_10, isbn_13, description,
+      _id, title, authors, coverSrc, edition_key, isbn_10, isbn_13, description,
     } = req.body.book;
 
     try {
@@ -103,7 +104,7 @@ booksRouter
           isbn_10,
           isbn_13,
           description,
-          bookEditionKey,
+          edition_key,
         },
       });
       if (!book.matchedCount) {

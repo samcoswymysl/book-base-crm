@@ -1,7 +1,12 @@
 <template>
+
   <div class="homeWrapper">
     <h1>Welcome to the Library CRM </h1>
-    <p>You can log in here and search your favorite books in the https://openlibrary.org database and after registration you can add your favorite books to your shelf</p>
+    <p>You can search for your favorite books in API https://openlibrary.org as well as in our database.
+       After registration, you can also create your own catalog with your favorite books.
+       Use it and enjoy it as much as you want.</p>
+    <p>If you would like to contact me, write an e-mail to the following address:
+       rafalkrukowskipraca123@gmail.com</p>
   </div>
 </template>
 

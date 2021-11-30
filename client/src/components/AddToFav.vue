@@ -22,6 +22,7 @@ export default {
     src: String,
     authors: Array,
     book: Object,
+    fromBase: Boolean,
   },
 
   data() {
@@ -29,8 +30,9 @@ export default {
       token: this.$cookies.get('auth'),
       servResponse: '',
       infoBook: {
+        fromBase: this.fromBase,
         title: this.book.title,
-        authors: this.book.author_name,
+        authors: this.authors,
         coverSrc: this.src,
         edition_key: this.book.edition_key[0],
       },
@@ -39,11 +41,13 @@ export default {
 
   methods: {
     async sendFavBook() {
+      console.log(this.infoBook);
       if (this.token === null) {
         this.error = 'You must login if you want add books to your favorite';
         return;
       }
       this.servResponse = await ConnectWithServ.addToFav(this.$cookies.get('auth'), this.infoBook);
+      console.log(this.servResponse);
       if (this.servResponse.status) {
         this.$router.go();
       }

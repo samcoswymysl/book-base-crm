@@ -92,12 +92,13 @@ export default {
       isbn_13: '',
       description: '',
       coverSrc: '',
-      bookEditionKey: '',
+      edition_key: [],
       authors: [],
       error: '',
       checkData: false,
       newBook: {},
       serverResponse: '',
+      bookEditionKey: '',
 
     };
   },
@@ -124,10 +125,12 @@ export default {
 
     async addNewBook() {
       this.checkData = this.checkRequiredData();
+      console.log(this.checkData);
       if (!this.checkData) {
         this.error = 'Check Book Data';
         return;
       }
+
       this.authors.push(this.author1);
       if (this.author2) {
         this.authors.push(this.author2);
@@ -136,6 +139,8 @@ export default {
         this.authors.push(this.author3);
       }
 
+      this.edition_key.push(this.bookEditionKey);
+
       this.newBook = {
         title: this.title,
         authors: this.authors,
@@ -143,7 +148,7 @@ export default {
         isbn_13: this.isbn_13,
         description: this.description,
         coverSrc: this.coverSrc,
-        bookEditionKey: this.bookEditionKey,
+        edition_key: this.edition_key,
       };
 
       this.serverResponse = await AdminUtils.addBook(this.$cookies.get('auth'), this.newBook);
@@ -155,10 +160,11 @@ export default {
         this.isbn_13 = '';
         this.description = '';
         this.coverSrc = '';
-        this.bookEditionKey = '';
+        this.edition_key = [];
         this.author1 = '';
         this.author2 = '';
         this.author3 = '';
+        this.bookEditionKey = '';
       }
     },
   },
@@ -167,6 +173,11 @@ export default {
 </script>
 
 <style scoped>
+
+.addNewBookWrapper{
+  margin-top:  7vh;
+  width: 65vw;
+}
 
 label {
   display: block;

@@ -12,7 +12,7 @@
       <div
         class="book"
         v-for="(book) in favBookArr"
-        :key="book.bookEditionKey"
+        :key="book.edition_key"
       >
         <img :src="`${book.coverSrc}`" :alt="`Cover book ${book.title}`">
         <p>{{book.title}}</p>
