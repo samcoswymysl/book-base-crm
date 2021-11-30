@@ -10,6 +10,7 @@
        Json Web Token and can add his favorite books.
        the application also has an administrator panel, also with authentication,
        a person with administrator rights can:
+    </p>
 
      <ul>
       <li>Delete users</li>
@@ -19,7 +20,7 @@
       <li>delete books from the database</li>
       <li>edit existing documents in the database</li>
       </ul>
-
+    <p>
     contact with me: rafalkrukowskipraca123@gmail.com
     </p>
   </div>

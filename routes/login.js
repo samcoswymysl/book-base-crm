@@ -6,7 +6,6 @@ const loginRouter = express.Router();
 loginRouter.post('/', (req, res, next) => {
   const { user } = req;
   try {
-
     const token = jtw.sign({ id: user.id },
       process.env.JWT_SECRET,
       { expiresIn: '3600s' });
