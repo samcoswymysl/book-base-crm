@@ -4,7 +4,7 @@ export default class ConnectWithServ {
   static addUser(name, password) {
     return new Promise((resolve) => {
       try {
-        fetch('http://localhost:3000/register', {
+        fetch('register', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -25,7 +25,7 @@ export default class ConnectWithServ {
 
   static login(name, password) {
     return new Promise((resolve) => {
-      fetch('http://localhost:3000/login', {
+      fetch('login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -46,7 +46,7 @@ export default class ConnectWithServ {
 
   static getFavorite(token) {
     return new Promise((resolve) => {
-      fetch('http://localhost:3000/fav', {
+      fetch('fav', {
         method: 'GET',
         headers: {
           Authorization: token,
@@ -74,7 +74,7 @@ export default class ConnectWithServ {
 
   static addToFav(token, bookInfo) {
     return new Promise((resolve) => {
-      fetch('http://localhost:3000/fav', {
+      fetch('fav', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -104,7 +104,7 @@ export default class ConnectWithServ {
 
   static deleteOnFav(token, bookInfo) {
     return new Promise((resolve) => {
-      fetch('http://localhost:3000/fav', {
+      fetch('fav', {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -133,7 +133,7 @@ export default class ConnectWithServ {
 
   static logout() {
     return new Promise((resolve) => {
-      fetch('http://localhost:3000/logout', {
+      fetch('logout', {
         credentials: 'include',
       })
         .then((res) => res.json())
@@ -146,7 +146,7 @@ export default class ConnectWithServ {
 
   static getBooksFromServ(title) {
     return new Promise((resolve) => {
-      fetch(`http://localhost:3000/books/title/${title}`)
+      fetch(`books/title/${title}`)
         .then((res) => res.json())
         .then((res) => resolve(res))
         .catch(() => {

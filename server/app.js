@@ -4,7 +4,7 @@ dotenv.config({ path: '.env' });
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const cors = require('cors');
+const path = require('path');
 
 const { booksRouter } = require('./routes/books');
 const { registerRouter } = require('./routes/register');
@@ -25,13 +25,9 @@ const app = express();
 mongoose.connect(process.env.DB_CONECTION.toString(), () => {
   console.log('Connect db mongos');
 });
+app.use(express.static('public'));
 app.use(passport.initialize());
 app.use(express.json());
-app.use(cors({
-  origin: 'http://localhost:8080', // <-- location of the react app were connecting to
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  credentials: true,
-}));
 app.use(bodyParser.json());
 
 app.use('/books', booksRouter);
@@ -45,6 +41,16 @@ app.use('/users', checkAdmin, userRouter);
 // Errors
 app.use(handleError);
 
-app.listen(3000, 'localhost', () => {
-  console.log('Serwer listen on http://localhost:3000');
+// handle production
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.resolve(__dirname, '/public/')));
+
+  app.get(/.*/, (req, res) => res.sendFile(path.resolve(__dirname, '/public/index.html')));
+}
+
+const port = process.env.PORT || 3000;
+
+app.listen(port, () => {
+  console.log(`Server listen on ${port}`);
 });

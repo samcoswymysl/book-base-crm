@@ -3,7 +3,7 @@ import Unauthorized from './errors';
 export default class AdminUtils {
   static openAdminPanel(token) {
     return new Promise((resolve, reject) => {
-      fetch('http://localhost:3000/admin', {
+      fetch('admin', {
         method: 'GET',
         headers: {
           Authorization: token,
@@ -25,7 +25,7 @@ export default class AdminUtils {
 
   static showUserList(token) {
     return new Promise((resolve, reject) => {
-      fetch('http://localhost:3000/users', {
+      fetch('users', {
         method: 'GET',
         headers: {
           Authorization: token,
@@ -47,7 +47,7 @@ export default class AdminUtils {
 
   static changeAdminStatus(token, user) {
     return new Promise((resolve) => {
-      fetch('http://localhost:3000/users/', {
+      fetch('users/', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -77,7 +77,7 @@ export default class AdminUtils {
 
   static resetPasword(token, user) {
     return new Promise((resolve) => {
-      fetch('http://localhost:3000/users/', {
+      fetch('users/', {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -107,7 +107,7 @@ export default class AdminUtils {
 
   static deleteUser(token, user) {
     return new Promise((resolve) => {
-      fetch('http://localhost:3000/users/', {
+      fetch('users/', {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -137,7 +137,7 @@ export default class AdminUtils {
 
   static getOurBooksFromServ(token) {
     return new Promise((resolve) => {
-      fetch('http://localhost:3000/books', {
+      fetch('books', {
         method: 'GET',
         headers: {
           Authorization: token,
@@ -165,7 +165,7 @@ export default class AdminUtils {
 
   static deleteBook(token, book) {
     return new Promise((resolve) => {
-      fetch('http://localhost:3000/books/', {
+      fetch('books/', {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -195,7 +195,7 @@ export default class AdminUtils {
 
   static addBook(token, book) {
     return new Promise((resolve) => {
-      fetch('http://localhost:3000/books/', {
+      fetch('books/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -225,7 +225,7 @@ export default class AdminUtils {
 
   static correctBook(token, book) {
     return new Promise((resolve) => {
-      fetch('http://localhost:3000/books/', {
+      fetch('books/', {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
