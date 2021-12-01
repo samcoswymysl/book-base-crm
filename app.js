@@ -43,14 +43,14 @@ app.use(handleError);
 
 // handle production
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.resolve(__dirname, '/public/')));
+// if (process.env.NODE_ENV === 'production') {
+//   app.use(express.static(path.resolve(__dirname, '/public/')));
+//
+//   app.get(/.*/, (req, res) => res.sendFile(path.resolve(__dirname, '/public/index.html')));
+// }
 
-  app.get(/.*/, (req, res) => res.sendFile(path.resolve(__dirname, '/public/index.html')));
-}
+const port = 3000;
 
-const port = process.env.PORT || 3000;
-
-app.listen(port, () => {
+app.listen(process.env.PORT || port, () => {
   console.log(`Server listen on ${port}`);
 });
