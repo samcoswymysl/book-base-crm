@@ -35,6 +35,9 @@ export default {
         authors: this.authors,
         coverSrc: this.src,
         edition_key: this.book.edition_key[0],
+        description: this.book.description,
+        isbn_10: this.book.isbn_10,
+        isbn_13: this.isbn_13,
       },
     };
   },

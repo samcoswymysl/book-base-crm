@@ -13,6 +13,7 @@
       <p v-if="book.title">Title: {{book.title}}</p>
       <p v-if="isbn_10">ISBN 10: {{isbn_10}}</p>
       <p v-if="isbn_13">ISBN 13: {{isbn_13}}</p>
+      <p v-if="edition_key">Book Edition key: {{edition_key}}</p>
       <p v-if="description">Description: {{description}} </p>
       <button
         class="close"
@@ -57,6 +58,7 @@ export default {
       isbn_10: '',
       isbn_13: '',
       description: '',
+      edition_key: '',
 
     };
   },
@@ -69,11 +71,12 @@ export default {
           this.isbn_10 = book.isbn_10;
           this.isbn_13 = book.isbn_13;
           this.description = book.description;
+          this.edition_key = (typeof book.edition_key === 'string') ? book.edition_key : book.edition_key[0];
           this.details = true;
           return;
         }
-        const key = (typeof book.edition_key === 'string') ? book.edition_key : book.edition_key[0];
-        const details = await connectWithApi.getOneBook(key);
+        this.edition_key = (typeof book.edition_key === 'string') ? book.edition_key : book.edition_key[0];
+        const details = await connectWithApi.getOneBook(this.edition_key);
         if (details.isbn_10) {
           // eslint-disable-next-line prefer-destructuring
           this.isbn_10 = details.isbn_10[0];
@@ -88,7 +91,6 @@ export default {
         }
         this.details = true;
       } catch (e) {
-        console.log('brak info');
         this.errDetails = e ? 'We dont have any information' : '';
       }
     },

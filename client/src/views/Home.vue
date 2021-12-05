@@ -4,9 +4,8 @@
     <h1>Welcome to the Library CRM </h1>
     <p>You can search for your favorite books in API https://openlibrary.org as well as in our database.
        After registration, you can also create your own catalog with your favorite books.
-       Use it and enjoy it as much as you want.</p>
-    <p>If you would like to contact me, write an e-mail to the following address:
-       rafalkrukowskipraca123@gmail.com</p>
+       Use it and enjoy it as much as you want.
+     </p>
   </div>
 </template>
 

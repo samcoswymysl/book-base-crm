@@ -7,7 +7,7 @@ export default class ConnectApi {
 
   static getBooks(title) {
     return new Promise((resolve) => {
-      fetch(`http://openlibrary.org/search.json?title=${title}`)
+      fetch(`https://openlibrary.org/search.json?title=${title}`)
         .then((res) => res.json())
         .then((res) => {
           const sorted = this.sortAlgorytm(res.docs);

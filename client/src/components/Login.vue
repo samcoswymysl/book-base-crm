@@ -63,7 +63,7 @@ input{
   padding: 3px 5px;
   text-align: center;
   background-color: rgba(0,0,0, .4);
-  font-size: 2.5vw;
+  font-size: 1.5vw;
 }
 
 button{

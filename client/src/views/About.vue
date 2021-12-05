@@ -20,7 +20,7 @@
       <li>delete books from the database</li>
       <li>edit existing documents in the database</li>
       </ul>
-    <p>
+    <p class="contact">
     contact with me: rafalkrukowskipraca123@gmail.com
     </p>
   </div>
@@ -44,6 +44,7 @@ p{
   text-align: justify;
 }
 ul{
+  text-transform: uppercase;
   margin: 12px;
   list-style-type: none;
   text-align: left;
@@ -55,6 +56,14 @@ ul{
   }
   p{
     margin-top: 40px;
+    font-size: 1.5em;
+  }
+
+  p.contact{
+    font-size: 0.8em;
+
+  }
+  ul{
     font-size: 1.5em;
   }
 }

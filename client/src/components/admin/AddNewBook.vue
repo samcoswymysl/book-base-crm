@@ -66,6 +66,7 @@
       name="Description"
       cols="30"
       rows="10"
+      aria-placeholder="Description"
       v-model="description"
     >Description</textarea>
 

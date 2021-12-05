@@ -4,7 +4,6 @@
     <div class="search-book-container">
 
       <h1>Books CRM</h1>
-      <p class="error" v-if="error">{{ error }}</p>
 
       <div class="books">
           <label for="title"></label>
@@ -15,9 +14,8 @@
             @keyup.enter="searchBooks"
             placeholder="Enter Book's title...">
 
+        <p class="error" v-if="resultDB">We dont find anything. Try later</p>
       </div>
-
-      <p v-if="resultDB">We don't find anything. Try Again</p>
 
       <div
         class="books-container"
@@ -152,18 +150,19 @@ export default {
   },
   methods: {
     async searchBooks() {
+      this.resultDB = false;
       const ourBooks = await ConnectWithServ.getBooksFromServ(this.title);
       if (Array.isArray(ourBooks)) {
-        this.resultDB = true;
         this.ourBooks = ourBooks;
       }
       const result = await connectWithApi.getBooks(this.title);
       if (Array.isArray(result)) {
-        this.result = true;
         this.books = result;
-      } else {
-        this.error = result;
       }
+      if (!result.length && !ourBooks.length) {
+        this.resultDB = true;
+      }
+      console.log(!result.length && !ourBooks.length, this.resultDB);
       this.title = '';
     },
   },
