@@ -1,4 +1,4 @@
-const passport = require('passport');
+const passport = require('config/passport');
 const LocalStrategy = require('passport-local').Strategy;
 const passportJWT = require('passport-jwt');
 const { compare } = require('bcrypt');
