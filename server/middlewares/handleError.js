@@ -14,6 +14,7 @@ function handleError(err, req, res, next) {
   const answer = {
     message: 'Sorry try later',
     status: 500,
+
   };
   if (err instanceof ShortLogin) {
     answer.message = 'Name must contain 2 characters';

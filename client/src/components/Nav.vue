@@ -73,7 +73,7 @@ export default {
       this.isLogin = this.$cookies.get('auth');
       this.registerWindow = false;
       this.loginWindow = false;
-      this.$router.go();
+      this.$router.push('/');
     },
   },
 };
